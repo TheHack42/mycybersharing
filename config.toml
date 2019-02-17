@@ -1,0 +1,36 @@
+baseURL = "https://www.mycybersharing.fr/"
+languageCode = "fr"
+title = "My Cyber Sharing"
+pluralizelisttitles = "false"
+
+
+## Site Settings
+[params]
+    author = "Hack42"
+    title = "My Cyber Sharing"
+    description = "Hack, Dev, Science... Partageons :)"
+    authorimage = "/img/avatar.png"
+    dateformat = "Jan 2, 2006"
+    highlightjs = true
+    highlightjsstyle = "github"
+
+## Social Accounts
+[params.social]
+    github = "TheHack42"
+    linkedin = "juliengarnier94"
+    twitter = "TheHack42"
+    email = "juliengarnier94@hotmail.fr"
+    rootme = "GARNIER"
+
+## Main Menu
+[[menu.main]]
+    name = "Cybersécu"
+    weight = 1
+    identifier = "cybersecu"
+    url = "/cybersecu/"
+
+[[menu.main]]
+    name = "A propos"
+    weight = 500
+    identifier = "about"
+    url = "/about/"
