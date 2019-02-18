@@ -94,14 +94,16 @@ Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais p
 
 ### Différents segments
 
-Un programme contient plusieurs segments qui sont des espaces d'adressage virtuel contenant toutes les informations permettant de mener à bien l'exécution du programme (des chaînes de caractères, des données, les instructions du programme...).\
-Les segments sont attachés à des droits d'accès (lecture/écriture/exécution) et permettant ainsi de les protéger.\
+Un programme contient plusieurs segments (sous-zone mémoire) qui sont des espaces d'adressage virtuel contenant toutes les informations permettant de mener à bien l'exécution du programme (des chaînes de caractères, des données, les instructions du programme...).\
+Les segments sont attachés à des droits d'accès (lecture/écriture/exécution) permettant ainsi de les protéger.\
 \
 Les principaux segments sont :
 
 - **.text** : contient les instructions du programme (le code)
 - **.data** : contient toutes les variables globales ou statiques possédant une valeur prédéfinie et pouvant être modifiées
-- **.rodata** : à l'opposition au segment .data, ce segment est uniquement en lecture seule
+- **.rodata** : à l'opposition au segment .data, ce segment est uniquement en lecture seule (**ro** pour read-only)
 - **.bss** : contient toutes les variables globales ou statiques initialisées à zéro ou n'ayant pas d'initialisation explicite dans le code source
 - **.heap** : le tas contient toutes les variables dynamiquement allouées au cours de l'exécution du programme
 - **.stack** : la pile est une structure [LIFO](https://fr.wikipedia.org/wiki/Last_in,_first_out)
+
+Cette liste n'est pas complète mais les principaux segments y sont.
