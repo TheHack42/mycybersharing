@@ -2,6 +2,8 @@ baseURL = "https://www.mycybersharing.fr/"
 languageCode = "fr"
 title = "My Cyber Sharing"
 pluralizelisttitles = "false"
+googleAnalytics = "UA-134696947-1"
+disqusShortname = "mycybersharing"
 
 
 ## Site Settings
@@ -13,6 +15,11 @@ pluralizelisttitles = "false"
     dateformat = "Jan 2, 2006"
     highlightjs = true
     highlightjsstyle = "github"
+
+    copyright = "Hack42"
+    license = "CC BY-NC-SA 4.0"
+    licenseURL = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    showBuiltWith = true
 
 ## Social Accounts
 [params.social]
