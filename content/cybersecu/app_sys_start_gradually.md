@@ -129,4 +129,4 @@ Bon d'accord, pas exactement mais il y a des points communs avec la pile de notr
 
 ![C8086](/img/stack_2.jpg)
 
-La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction ainsi que la position actuelle de notre pointeur d'exécution (registre EIP). On y retrouve également les variables locales à la fonction. Toutes ces-choses là sont en fait la *stack frame*.
+La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction ainsi que la position actuelle de notre pointeur d'exécution (registre EIP). On y retrouve les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là sont appelées la *stack frame*.
