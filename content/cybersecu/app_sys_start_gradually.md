@@ -84,7 +84,7 @@ Un programme contient une zone mémoire divisée en octets. Chaque octet de cett
 | 4002            | n      |
 | ....            | ...    |
 
-Ces adresses sont codées soit en 32 ou 64 bits suivant l'architecture. Un programme compilé pour une architecture 32 bits aura des adresses 32 bits et un programme 64 bits, des adresses 64 bits. Il n'est pas possible de faire fonctionner un programme 64 bits sur une architecture de processeur 32 bits. En revanche, l'inverse est possible en simulant une architecture 32 bits et ainsi un programme 32 bits pourra fonctionner sur un processeur 64 bits.
+Ces adresses sont codées suivant l'architecture de destination. Un programme compilé pour une architecture 32 bits aura des adresses 32 bits et un programme 64 bits, des adresses 64 bits. Il n'est pas possible de faire fonctionner un programme 64 bits sur une architecture de processeur 32 bits. En revanche, l'inverse est possible en simulant une architecture 32 bits et ainsi un programme 32 bits pourra fonctionner sur un processeur 64 bits.
 \
 \
 Deux instances d'un même programme peut utiliser les mêmes adresses sans que cela pose problème... Ce qui ne devrait pas être possible.\
@@ -96,7 +96,7 @@ Pour faire simple, un programme a l'impression qu'il possède toute la mémoire 
 
 ![C8086](/img/virtual_memory.jpg)
 
-Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques.
+Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
 
 ### Différents segments
 
@@ -129,4 +129,4 @@ Bon d'accord, pas exactement mais il y a des points communs avec la pile de notr
 
 ![C8086](/img/stack_2.jpg)
 
-La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction ainsi que la position actuelle de notre pointeur d'exécution (registre EIP) 
+La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction ainsi que la position actuelle de notre pointeur d'exécution (registre EIP). On y retrouve également les variables locales à la fonction. Toutes ces-choses là sont en fait la *stack frame*.
