@@ -87,7 +87,7 @@ Un programme contient une zone mémoire divisée en octets. Chaque octet de cett
 Ces adresses sont codées soit en 32 ou 64 bits suivant l'architecture. Un programme compilé pour une architecture 32 bits aura des adresses 32 bits et un programme 64 bits, des adresses 64 bits. Il n'est pas possible de faire fonctionner un programme 64 bits sur une architecture de processeur 32 bits. En revanche, l'inverse est possible en simulant une architecture 32 bits et ainsi un programme 32 bits pourra fonctionner sur un processeur 64 bits.
 \
 \
-Deux instances d'un même programme peut utiliser les mêmes adresses sans que cela pose problème... Ce qui ne devrait pas être possible.\
+Deux instances d'un même programme peuvent utiliser les mêmes adresses sans que cela pose problème... Ce qui ne devrait pas être possible.\
 Cela a été rendu possible grâce à l'utilisation de la mémoire virtuelle. Sur un système, deux types d'adresses existent : les adresses virtuelles et les adresses physiques.\
 Pour faire simple, un programme a l'impression qu'il possède toute la mémoire à lui seul parce-qu'on lui a attribué une zone mémoire virtuelle et non réelle :
 
