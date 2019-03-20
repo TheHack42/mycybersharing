@@ -96,7 +96,7 @@ Pour faire simple, un programme a l'impression qu'il possède toute la mémoire 
 
 ![C8086](/img/virtual_memory.jpg)
 
-Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
+Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique))) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
 
 ### Différents segments
 
@@ -129,4 +129,157 @@ Bon d'accord, pas exactement mais il y a des points communs avec la pile de notr
 
 ![C8086](/img/stack_2.jpg)
 
-La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction ainsi que la position actuelle de notre pointeur d'exécution (registre EIP). On y retrouve les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là sont appelées la **stack frame** (cadre de pile).
+La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction et également préserver le pointeur d'exécution (registre EIP) afin de reprendre l'exécution de cette fonction. On y retrouve les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là sont appelées la **stack frame** (cadre de pile).
+
+### Un exemple concret
+Prenons l'exemple d'un programme très basic possédant deux fonctions : "main" et "addition".\
+Le programme va réaliser la somme entre deux nombres et afficher le résultat à l'écran :
+
+```
+#include <stdio.h>
+
+void addition(int a, int b) {
+    printf("La somme de %d et %d est %d\n", a, b, a + b);
+}
+
+int main() {
+    addition(4, 8); // <= Appel de la fonction "addition"
+    return 0;
+}
+```
+
+Lançons la compilation du programme et exécutons-le sans plus attendre :
+
+```
+[julien@hack42]$ gcc main.c -o test -m32
+[julien@hack42]$ ./test 
+La somme de 4 et 8 est 12
+```
+
+Aucune surprise :) Mais du coup qu'est-ce qu'il se passe concrètement pendant l'exécution du programme ?\
+Tout d'abord, le programme commence par exécuter la fonction principale "main" et dès le début, la fonction "addition" est appelée (opcode "call" en assembleur). Regardons à quoi ressemble le code assembleur permettant d'effectuer cet appel :
+
+```
+[-------------------------------------code-------------------------------------]
+   0x804846f <main+20>:	push   0x8
+   0x8048471 <main+22>:	push   0x4
+=> 0x8048473 <main+24>:	call   0x8048436 <addition>
+   0x8048478 <main+29>:	add    esp,0x10
+Guessed arguments:
+arg[0]: 0x4 
+arg[1]: 0x8
+[------------------------------------stack-------------------------------------]
+0000| 0xffffc560 --> 0x4 
+0004| 0xffffc564 --> 0x8
+```
+
+On constate que les arguments sont poussés (push) sur le haut de la pile et c'est seulement après cela que la fonction est appelée.\
+***Petite remarque : les arguments sont poussés en commençant par le dernier afin d'avoir le premier en haut de la pile.***
+
+Maintenant allons voir comment ça se passe pour la fonction "addition" :
+
+```
+[-------------------------------------code-------------------------------------]
+=> 0x8048436 <addition>:	  push   ebp
+   0x8048437 <addition+1>:	mov    ebp,esp
+   0x8048439 <addition+3>:	sub    esp,0x8
+   0x804843c <addition+6>:	mov    edx,DWORD PTR [ebp+0x8]
+   0x804843f <addition+9>:	mov    eax,DWORD PTR [ebp+0xc]
+[------------------------------------stack-------------------------------------]
+0000| 0xffffc55c --> 0x8048478 (<main+29>:	add    esp,0x10)
+0004| 0xffffc560 --> 0x4 
+0008| 0xffffc564 --> 0x8
+```
+
+Mais... il y a un élément supplémentaire en haut de la pile !\
+Eh oui. A votre avis, comment le programme peut-il reprendre l'exécution de la fonction "main" sans sauvegarder sa position actuelle ? Ce n'est pas possible. Pour pouvoir y parvenir, à l'exécution de l'instruction "call", le processeur empile automatiquement le registre EIP (contenant l'instruction suivante). Dans notre exemple, "0x8048478" (main+29).
+
+#### Initialiser la stack frame (prologue)
+
+**Chaque fonction possède sa propre stack frame** et la fonction "addition" n'y échappe pas. Cela veut dire qu'elle doit donc se réserver sa stack frame. Regardez ces deux instructions :
+
+```
+push   ebp
+mov    ebp,esp
+```
+
+Ces deux instructions au début de la fonction "addition" sont appelées le **prologue**. Elles permettent dans un premier temps de sauvegarder le bas de la pile courante et ensuite d'en initialiser une nouvelle. Attendez, laissez-moi vous faire un schéma pour que ça soit plus simple !
+
+![C8086](/img/stack_frame.jpg)
+
+Vous voyez que la stack frame de "addition" est vide, parce qu'elle n'a pas encore été utilisée. De ce fait, le pointeur ESP est identique au pointeur EBP (ils sont confondus). Quand la stack frame de "addition" va être consommée, alors le pointeur ESP va monter vers les adresses les plus basses.\
+Maintenant voyons comment récupérer les arguments qui ont été passés à la fonction "addition".
+
+#### Récupérer les arguments
+
+```
+mov    edx,DWORD PTR [ebp+0x8]
+mov    eax,DWORD PTR [ebp+0xc]
+```
+
+En français, cela donnerait :
+
+- "Copier la valeur ([double mot](https://fr.wikipedia.org/wiki/Mot_(architecture_informatique))) pointant en EBP+8 vers le registre EDX" (**argument 1**)
+- "Copier la valeur ([double mot](https://fr.wikipedia.org/wiki/Mot_(architecture_informatique))) pointant en EBP+12 vers le registre EAX" (**argument 2**)
+
+Comme EBP pointe sur le haut de la stack frame de "main" alors il suffit de le prendre comme référence. Pour récupérer les arguments, nous devons donc faire **"EBP+0x8" pour le premier** et **"EBP+0xc" (0xc = 12) pour le second** (regardez le schéma plus haut).
+
+#### Restaurer la stack frame de main (épilogue)
+
+A la fin de la fonction "addition", il faut restaurer la stack frame de main et reprendre l'exécution de cette dernière. Regardons maintenant les dernières instructions de la fonction "addition" pour comprendre comment cela fonctionne :
+
+```
+leave  
+ret 
+``` 
+
+Eh oui, c'est ces deux petites instructions qui permettent de restaurer la stack frame de main et ainsi reprendre son exécution normalement. On appelle cette phase, l'**épilogue**.
+
+---
+
+Vous vous souvenez que dans le prologue EBP a été poussé en haut de la pile ? L'instruction "leave" va maintenant utiliser cette valeur pour restaurer la stack frame de main :
+
+![C8086](/img/stack_frame_restore.jpg)
+
+Dans l'ordre, l'instruction leave va effectuer ceci :
+
+1. Restauration de ESP. Pour cela, ESP = EBP+0x4
+2. Restauration de EBP. Pour cela, il utilise la valeur poussée sur la pile tout au début (valeur en bleue sur le schéma). La valeur de EBP vaudra 0xffffc578.
+
+L'instruction "leave" est équivalente à ceci :
+
+```
+lea    esp,[ebp+0x4]				; esp = ebp + 4
+mov    ebp,DWORD PTR [ebp]	; ebp = valeur de ebp
+```
+
+---
+
+Par la suite, l'instruction "ret" (pour retour) va permettre de reprendre l'exécution de la fonction "main" et ceci est possible parce que EIP a été poussé sur la pile (en rouge sur le schéma) par l'instruction "call".
+
+L'instruction "ret" est équivalente à ceci :
+
+```
+jmp    DWORD PTR [esp]	; saute à la valeur (adresse) présente sur le haut de la pile
+add    esp,0x4 					; ajoute 4 à esp
+```
+
+---
+
+Et voilà, la stack frame de main a été restaurée correctement et nous avons repris l'exécution de main là où on c'était arrêté au moment du "call" (main+29) :
+
+```
+[----------------------------------registers-----------------------------------]
+EBP: 0xffffc578 --> 0x0 
+ESP: 0xffffc560 --> 0x4 
+EIP: 0x8048478 (<main+29>:	add    esp,0x10)
+[-------------------------------------code-------------------------------------]
+   0x804846f <main+20>:	push   0x8
+   0x8048471 <main+22>:	push   0x4
+   0x8048473 <main+24>:	call   0x8048436 <addition>
+=> 0x8048478 <main+29>:	add    esp,0x10
+[------------------------------------stack-------------------------------------]
+0000| 0xffffc560 --> 0x4 
+0004| 0xffffc564 --> 0x8
+```
+
