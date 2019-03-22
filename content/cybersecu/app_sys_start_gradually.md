@@ -98,6 +98,8 @@ Pour faire simple, un programme a l'impression qu'il possède toute la mémoire 
 
 Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique))) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
 
+Les adresses sont utilisées partout et pour tout. Toutes les cases mémoires sont rattachées à une adresse : les fonctions, les variables, les instructions... Elles permettent d'accéder à une zone de la mémoire en utilisant un identifiant, un nombre entier naturel. C'est le microprocesseur qui va s'occuper d'accéder à cette zone mémoire en lui envoyant son adresse.
+
 ### Différents segments
 
 Un programme contient plusieurs segments (sous-zone mémoire) qui sont des espaces d'adressage virtuel contenant toutes les informations permettant de mener à bien l'exécution du programme (des chaînes de caractères, des données, les instructions du programme...).\
@@ -156,7 +158,9 @@ Lançons la compilation du programme et exécutons-le sans plus attendre :
 La somme de 4 et 8 est 12
 ```
 
-Aucune surprise :) Mais du coup qu'est-ce qu'il se passe concrètement pendant l'exécution du programme ?\
+La commande "gcc" (GNU Compiler Collection) est un ensemble de compilateurs capables de compiler divers langages de programmation. Ici, nous l'utilisons pour compiler un programme en C. L'argument "-m32" permet de compiler notre programme en 32 bits et ainsi notre programme possédera des adresses de 4 octets.
+
+Mais du coup qu'est-ce qu'il se passe concrètement pendant l'exécution du programme ?\
 Tout d'abord, le programme commence par exécuter la fonction principale "main" et dès le début, la fonction "addition" est appelée (opcode "call" en assembleur). Regardons à quoi ressemble le code assembleur permettant d'effectuer cet appel :
 
 ```
@@ -219,10 +223,10 @@ mov    eax,DWORD PTR [ebp+0xc]
 
 En français, cela donnerait :
 
-- "Copier la valeur ([double mot](https://fr.wikipedia.org/wiki/Mot_(architecture_informatique))) pointant en EBP+8 vers le registre EDX" (**argument 1**)
-- "Copier la valeur ([double mot](https://fr.wikipedia.org/wiki/Mot_(architecture_informatique))) pointant en EBP+12 vers le registre EAX" (**argument 2**)
+- "Copier la valeur (DWORD pour [double mot](https://fr.wikipedia.org/wiki/Mot_(architecture_informatique))) pointant en EBP+8 vers le registre EDX" (**argument 1**)
+- "Copier la valeur pointant en EBP+12 vers le registre EAX" (**argument 2**)
 
-Comme EBP pointe sur le haut de la stack frame de "main" alors il suffit de le prendre comme référence. Pour récupérer les arguments, nous devons donc faire **"EBP+0x8" pour le premier** et **"EBP+0xc" (0xc = 12) pour le second** (regardez le schéma plus haut).
+Comme EBP pointe sur le haut de la stack frame de "main" alors il suffit de l'utiliser comme référence. Pour récupérer les arguments, nous devons donc faire **"EBP+0x8" pour le premier** et **"EBP+0xc" (0xc = 12) pour le second** (regardez le schéma plus haut).
 
 #### Restaurer la stack frame de main (épilogue)
 
@@ -283,3 +287,10 @@ EIP: 0x8048478 (<main+29>:	add    esp,0x10)
 0004| 0xffffc564 --> 0x8
 ```
 
+![C8086](/img/stack_call.gif)
+
+### Le mot de la fin
+
+J'espère que ce tuto d'introduction sur les failles systèmes vous aura plu et que vous l'avez compris dans sa globalité. Si vous l'avez apprécié, n'hésitez pas à mettre un petit "j'aime" en bas de la page. Si vous avez des questions sur une partie que vous n'avez pas comprise ou tout simplement partager votre avis, alors n'hésitez pas à commenter la page. Et même (surtout) si j'ai fait une boulette.
+
+Maintenant vous êtes prêt pour passer à la suite, l'exploitation d'un buffer overflow (arrive prochainement) :)
