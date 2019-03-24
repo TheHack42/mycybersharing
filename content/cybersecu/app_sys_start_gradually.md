@@ -39,7 +39,7 @@ Les instructions possèdent une taille qui sera variable suivant les arguments p
 \
 En réalité, le petit mot-clé au début de l'instruction est appellé un "**opcode**" (code opération) et permet de déterminer la nature de l'instruction. "mov" est donc un opcode parmis tant d'autres.
 
-![C8086](/img/instruction.jpg)
+![instruction](/img/instruction.jpg)
 
 ## Les registres pour nos calcules
 
@@ -60,7 +60,7 @@ Voici la liste des registres les plus importants:
 
 *La pile est expliquée plus bas, ne vous inquiétez pas ;)*
 
-![C8086](/img/register.jpg)
+![register](/img/register.jpg)
 
 Ces registres sont utilisés par les différentes instructions du programme.
 
@@ -94,7 +94,7 @@ Pour faire simple, un programme a l'impression qu'il possède toute la mémoire 
  - Adresse virtuelle : elles sont utilisées à l'intérieur d'un programme
  - Adresse physique : c'est les adresses utilisées physiquement par les puces présentes sur les barrettes de RAM
 
-![C8086](/img/virtual_memory.jpg)
+![virtual memory](/img/virtual_memory.jpg)
 
 Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique))) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
 
@@ -116,7 +116,7 @@ Les principaux segments sont :
 
 Cette liste n'est pas complète mais les principaux segments y sont. Ne vous inquiétez pas si vous n'avez pas très bien compris à quoi servaient les segments. Par la suite, avec la pratique cela viendra :)
 
-![C8086](/img/segments.jpg)
+![segments](/img/segments.jpg)
 
 Ce schéma illustre une représentation de la mémoire virtuelle d'un programme. La position des segments ne change pas d'une exécution à l'autre et reste toujours dans cet ordre.\
 Nous pouvons constater que la pile grossie du haut vers le bas et que le tas grossit du bas vers le haut. La taille de ces deux segments n'est donc pas fixe.
@@ -125,11 +125,11 @@ Nous pouvons constater que la pile grossie du haut vers le bas et que le tas gro
 
 Ça!
 
-![C8086](/img/stack_1.jpg)
+![stack](/img/stack_1.jpg)
 
 Bon d'accord, pas exactement mais il y a des points communs avec la pile de notre programme. La pile est une structure LIFO, c'est-à-dire que le dernier élément ajouté sera le premier à être retiré. Quand on empile des assiettes les unes sur les autres, il faut d'abord retirer la première pour ensuite retirer la deuxième assiette de la pile.
 
-![C8086](/img/stack_2.jpg)
+![stack](/img/stack_2.jpg)
 
 La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction et également préserver le pointeur d'exécution (registre EIP) afin de reprendre l'exécution de cette fonction. On y retrouve les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là sont appelées la **stack frame** (cadre de pile).
 
@@ -209,7 +209,7 @@ mov    ebp,esp
 
 Ces deux instructions au début de la fonction "addition" sont appelées le **prologue**. Elles permettent dans un premier temps de sauvegarder le bas de la pile courante et ensuite d'en initialiser une nouvelle. Attendez, laissez-moi vous faire un schéma pour que ça soit plus simple !
 
-![C8086](/img/stack_frame.jpg)
+![stack frame](/img/stack_frame.jpg)
 
 Vous voyez que la stack frame de "addition" est vide, parce qu'elle n'a pas encore été utilisée. De ce fait, le pointeur ESP est identique au pointeur EBP (ils sont confondus). Quand la stack frame de "addition" va être consommée, alors le pointeur ESP va monter vers les adresses les plus basses.\
 Maintenant voyons comment récupérer les arguments qui ont été passés à la fonction "addition".
@@ -243,7 +243,7 @@ Eh oui, c'est ces deux petites instructions qui permettent de restaurer la stack
 
 Vous vous souvenez que dans le prologue EBP a été poussé en haut de la pile ? L'instruction "leave" va maintenant utiliser cette valeur pour restaurer la stack frame de main :
 
-![C8086](/img/stack_frame_restore.jpg)
+![stack frame restore](/img/stack_frame_restore.jpg)
 
 Dans l'ordre, l'instruction leave va effectuer ceci :
 
@@ -287,7 +287,7 @@ EIP: 0x8048478 (<main+29>:	add    esp,0x10)
 0004| 0xffffc564 --> 0x8
 ```
 
-![C8086](/img/stack_call.gif)
+![stack call](/img/stack_call.gif)
 
 ### Le mot de la fin
 
