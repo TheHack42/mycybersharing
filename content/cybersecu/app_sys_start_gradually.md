@@ -5,24 +5,24 @@ date: 2019-02-17
 description: "Commencer pas-à-pas dans le domaine de l'exploitation de failles applicatives systèmes."
 ---
 
-## "App-Sys", vous avez dit ?
-Oui, "App-Sys" :) C'est le principe d'exploiter une vulnérabilité applicative principalement liée à une erreur de développement et qui peut finir par aboutir à des corruptions de différentes zones mémoire.
+## "Application - Système", vous avez dit ?
+Oui, "Application - Système" :) C'est le principe d'exploiter une vulnérabilité applicative principalement liée à une erreur de développement et qui peut finir par aboutir à des corruptions de différentes zones mémoire.
 \
 \
 L'objectif ici c'est d'aborder pas-à-pas ce domaine en passant par les registres, la structure d'un exécutable, la pile, le tas... bref, des choses compliquées pour un débutant qui souhaite se lancer dans l'exploitation de failles systèmes.
 
 ## Les débuts du Intel 8086
 
-L'Intel 8086 est un microprocesseur (unité central de traitement) sortie en 1978 dont son objectif est d'effectuer des calculs. C'est le premier processeur de la famille X86, qui est devenu à ce jour une grande famille et la plus répandue dans le monde des ordinateurs et serveurs informatiques.
+L'Intel 8086 est un microprocesseur (unité central de traitement) sortie en 1978 dont l'objectif est d'effectuer des calculs. C'est le premier processeur de la famille X86, qui est devenu à ce jour une grande famille et la plus répandue dans le monde des ordinateurs et serveurs informatiques.
 
 ![C8086](/img/Intel_C8086.jpg)
 
-Cette petite bébête exécute des instructions machines permettant d'effectuer des opérations (l'addition, la soustraction, multiplication, ET logique...), c'est ce qui fait fonctionner nos programmes et notre système d'exploitation. Cette liste d'instructions est appelée un "jeu d'instructions".\
-Depuis ce jour (1978), les processeurs de la famille X86 ont gardé la rétrocompatibilité avec la précédente version. Cela veut dire que le jeu d'instructions du 8086 est également présent dans nos dernières générations de processeurs. Il est donc possible de faire fonctionner un programme datant de 1978 sur les derniers processeurs :). Pas mal, non?
+Cette petite bébête exécute des instructions machines permettant d'effectuer des opérations (l'addition, la soustraction, multiplication, ET logique...), c'est ce qui fait fonctionner nos programmes et notre système d'exploitation. Cette liste d'instructions est appelée "jeu d'instructions".\
+Depuis 1978, les processeurs de la famille X86 ont gardé la rétrocompatibilité avec la précédente version. Cela veut dire que le jeu d'instructions du 8086 est également présent dans nos dernières générations de processeurs. Il est donc possible de faire fonctionner un programme datant de 1978 sur les derniers processeurs :). Pas mal, non?
 
 ## Et ces instructions, ça ressemble à quoi exactement ?
 
-Une instruction c'est une suite de bits représentant un ordre pour le microprocesseur. Comme le binaire est difficilement compréhensible pour les humains, le programmeur utilise une abréviation, un simple mot-clé suivis des arguments qui va désigner l'instruction à exécuter. Par la suite, ces mots-clés sont convertis en binaire avant d'être envoyé au microprocesseur.
+Une instruction c'est une suite de bits représentant un ordre pour le microprocesseur. Comme le binaire est difficilement compréhensible pour les humains, le programmeur utilise une abréviation, un simple mot-clé suivis des arguments qui vont désigner l'instruction à exécuter. Par la suite, ces mots-clés sont convertis en binaire avant d'être envoyé au microprocesseur.
 
 ```
 mov ah, 5		; déplace 5 dans "ah" 	: 	ah = 5
@@ -49,16 +49,22 @@ Suivant la version que nous souhaitons, le préfixe change : **E** pour obtenir 
 Voici la liste des registres les plus importants:
 
  - **AX** (16 bits) -> **EAX** (32 bits) -> **RAX** (64 bits)
- - **BX** (16 bits) -> **EBX** (32 bits) -> **RBX** (64 bits)
- - **CX** (16 bits) -> **ECX** (32 bits) -> **RCX** (64 bits)
- - **DX** (16 bits) -> **EDX** (32 bits) -> **RDX** (64 bits)
- - **SI** (16 bits) -> **ESI** (32 bits) -> **RSI** (64 bits)
- - **DI** (16 bits) -> **EDI** (32 bits) -> **RDI** (64 bits)
- - **BP** (16 bits) -> **EBP** (32 bits) -> **RBP** (64 bits) : *adresse de la partie Basse de la Pile*
- - **SP** (16 bits) -> **ESP** (32 bits) -> **RSP** (64 bits) : *adresse de la partie Supérieure de la Pile*
- - **IP** (16 bits) -> **EIP** (32 bits) -> **RIP** (64 bits) : *adresse de la prochaine instruction à exécuter*
+ - **EBX**
+ - **ECX**
+ - **EDX**
+ - **ESI**
+ - **EDI**
+ - **EBP** : *adresse de la partie Basse de la Pile*
+ - **ESP** : *adresse de la partie Supérieure de la Pile*
+ - **EIP** : *adresse de la prochaine instruction à exécuter*
 
 *La pile est expliquée plus bas, ne vous inquiétez pas ;)*
+
+Les 4 premiers registres 16 bits sont également décomposés en sous registres.\
+Par exemple pour AX, nous avons également :
+
+- AL : registre de poids faible 8 bits
+- AH : registre de poids fort 8 bits
 
 ![register](/img/register.jpg)
 
@@ -66,14 +72,14 @@ Ces registres sont utilisés par les différentes instructions du programme.
 
 ## Un programme comment ça marche sinon ?
 
-Suivant le système d'exploitation, un programme va avoir une structure différente mais chacune reste équivalente. Nous allons nous pencher sur la structure du format de fichier ELF (Executable and Linkable Format) qui est le format des applications sous linux.
-\
-\
-Avant qu'un programme soit exécuté, il est chargé en mémoire et ensuite la première instruction se trouvant au point d'entrer du programme (**EP** pour Entry Point) est exécutée.
+Suivant le système d'exploitation, un programme va avoir une structure différente mais similaire. Nous allons nous pencher sur la structure du format de fichier ELF (Executable and Linkable Format) qui est le format des applications sous linux.
+
+
+Avant qu'un programme soit exécuté, il est chargé en mémoire et ensuite la première instruction se trouvant au point d'entrée du programme (**EP** pour Entry Point) est exécutée.
 
 ### Le système d'adressage mémoire
 
-Un programme contient une zone mémoire divisée en octets. Chaque octet de cette zone contient une adresse représentée en [hexadécimale](https://fr.wikipedia.org/wiki/Syst%C3%A8me_hexad%C3%A9cimal) permettant de l'utiliser. La première adresse est la plus petite et la dernière la plus grande.
+Un programme contient une zone mémoire divisée en octets. Chaque octet de cette zone contient une adresse représentée en [hexadécimal](https://fr.wikipedia.org/wiki/Syst%C3%A8me_hexad%C3%A9cimal) permettant de l'utiliser. La première adresse est la plus petite et la dernière la plus grande.
 
 *Mémoire du programme*
 
@@ -92,13 +98,13 @@ Cela a été rendu possible grâce à l'utilisation de la mémoire virtuelle. Su
 Pour faire simple, un programme a l'impression qu'il possède toute la mémoire à lui seul parce-qu'on lui a attribué une zone mémoire virtuelle et non réelle :
 
  - Adresse virtuelle : elles sont utilisées à l'intérieur d'un programme
- - Adresse physique : c'est les adresses utilisées physiquement par les puces présentes sur les barrettes de RAM
+ - Adresse physique : c'est les adresses utilisées physiquement par les puces présentes sur les barrettes de RAM et également par le noyau (c'est lui qui fait la liaison entre les programmes et le matériel)
 
 ![virtual memory](/img/virtual_memory.jpg)
 
-Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. On place en quelque sorte notre programme dans des bacs à sable ([sandbox](https://fr.wikipedia.org/wiki/Sandbox_(s%C3%A9curit%C3%A9_informatique))) et c'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel.
+Voilà pourquoi un programme peut utiliser les mêmes adresses virtuelles mais pas les mêmes adresses physiques. C'est le noyau du système d'exploitation qui gère les opérations de plus bas niveau en relation avec le matériel et ainsi est amené à manipuler les adresses physiques.
 
-Les adresses sont utilisées partout et pour tout. Toutes les cases mémoires sont rattachées à une adresse : les fonctions, les variables, les instructions... Elles permettent d'accéder à une zone de la mémoire en utilisant un identifiant, un nombre entier naturel. C'est le microprocesseur qui va s'occuper d'accéder à cette zone mémoire en lui envoyant son adresse.
+Les adresses sont utilisées partout et pour tout. Tout est adresse, que l'on désigne une fonction, une variable, une suite d'instructions... Elles permettent d'accéder à une zone de la mémoire en utilisant un identifiant, un nombre entier naturel.
 
 ### Différents segments
 
@@ -112,14 +118,14 @@ Les principaux segments sont :
 - **.rodata** : à l'opposition au segment .data, ce segment est uniquement en lecture seule (**ro** pour read-only)
 - **.bss** : contient toutes les variables globales ou statiques initialisées à zéro ou n'ayant pas d'initialisation explicite dans le code source
 - **heap** : le tas contient toutes les variables dynamiquement allouées au cours de l'exécution du programme
-- **stack** : la pile est une structure [LIFO](https://fr.wikipedia.org/wiki/Last_in,_first_out)
+- **stack** : la pile est une structure [LIFO](https://fr.wikipedia.org/wiki/Last_in,_first_out). Elle est utilisée pour stocker des données durant l'exécution du programme pour pouvoir les récupérer plus tard
 
-Cette liste n'est pas complète mais les principaux segments y sont. Ne vous inquiétez pas si vous n'avez pas très bien compris à quoi servaient les segments. Par la suite, avec la pratique cela viendra :)
+Cette liste n'est pas complète mais les principaux segments y sont. Ne vous inquiétez pas si vous n'avez pas très bien compris à quoi servaient les segments. Ça viendra avec la pratique.
 
 ![segments](/img/segments.jpg)
 
 Ce schéma illustre une représentation de la mémoire virtuelle d'un programme. La position des segments ne change pas d'une exécution à l'autre et reste toujours dans cet ordre.\
-Nous pouvons constater que la pile grossie du haut vers le bas et que le tas grossit du bas vers le haut. La taille de ces deux segments n'est donc pas fixe.
+Nous pouvons constater que la pile grossit du haut vers le bas et que le tas grossit du bas vers le haut. La taille de ces deux segments n'est donc pas fixe.
 
 ### Mais cette pile, c'est quoi en fait ?
 
@@ -127,11 +133,11 @@ Nous pouvons constater que la pile grossie du haut vers le bas et que le tas gro
 
 ![stack](/img/stack_1.jpg)
 
-Bon d'accord, pas exactement mais il y a des points communs avec la pile de notre programme. La pile est une structure LIFO, c'est-à-dire que le dernier élément ajouté sera le premier à être retiré. Quand on empile des assiettes les unes sur les autres, il faut d'abord retirer la première pour ensuite retirer la deuxième assiette de la pile.
+Bon d'accord, pas exactement mais il y a des points communs avec la pile de notre programme. La pile est une structure LIFO (Last in, first out), c'est-à-dire que le dernier élément ajouté sera le premier à être retiré. Quand on empile des assiettes les unes sur les autres, il faut d'abord retirer la première pour ensuite retirer la deuxième assiette de la pile.
 
 ![stack](/img/stack_2.jpg)
 
-La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction et également préserver le pointeur d'exécution (registre EIP) afin de reprendre l'exécution de cette fonction. On y retrouve les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là sont appelées la **stack frame** (cadre de pile).
+La pile est principalement utilisée pour stocker les données nécessaires à l'exécution d'une fonction et également préserver le pointeur d'exécution (registre EIP) afin de reprendre l'exécution de cette fonction. On peut y retrouver les arguments de notre fonction mais également les variables locales à celle-ci. Toutes ces choses-là composent la **stack frame** (cadre de pile).
 
 ### Un exemple concret
 Prenons l'exemple d'un programme très basic possédant deux fonctions : "main" et "addition".\
@@ -160,8 +166,12 @@ La somme de 4 et 8 est 12
 
 La commande "gcc" (GNU Compiler Collection) est un ensemble de compilateurs capables de compiler divers langages de programmation. Ici, nous l'utilisons pour compiler un programme en C. L'argument "-m32" permet de compiler notre programme en 32 bits et ainsi notre programme possédera des adresses de 4 octets.
 
-Mais du coup qu'est-ce qu'il se passe concrètement pendant l'exécution du programme ?\
-Tout d'abord, le programme commence par exécuter la fonction principale "main" et dès le début, la fonction "addition" est appelée (opcode "call" en assembleur). Regardons à quoi ressemble le code assembleur permettant d'effectuer cet appel :
+***Mais du coup qu'est-ce qu'il se passe concrètement pendant l'exécution du programme ?***\
+Tout d'abord, le programme commence par exécuter la fonction principale "main" et enfin la fonction "addition" est appelée.
+
+> En réalité, c'est la fonction "\_start" qui appelle notre fonction "main". Cette fonction est ajoutée par le compilateur et contient le code de démarrage de l'environnement d'exécution C. Elle s'occupe de configurer des éléments, remplit le tableau d'arguments, compte le nombre d'arguments, etc....
+
+L'opcode "call" en assembleur est utilisé pour appeler la fonction "addition". Regardons à quoi ressemble le code assembleur permettant d'effectuer cet appel :
 
 ```
 [-------------------------------------code-------------------------------------]
@@ -177,8 +187,8 @@ arg[1]: 0x8
 0004| 0xffffc564 --> 0x8
 ```
 
-On constate que les arguments sont poussés (push) sur le haut de la pile et c'est seulement après cela que la fonction est appelée.\
-***Petite remarque : les arguments sont poussés en commençant par le dernier afin d'avoir le premier en haut de la pile.***
+On constate que les arguments sont empilés (avec "push") sur le haut de la pile et c'est seulement après cela que la fonction est appelée.\
+***Petite remarque : les arguments sont empilés en commençant par le dernier afin d'avoir le premier en haut de la pile.***
 
 Maintenant allons voir comment ça se passe pour la fonction "addition" :
 
@@ -196,7 +206,7 @@ Maintenant allons voir comment ça se passe pour la fonction "addition" :
 ```
 
 Mais... il y a un élément supplémentaire en haut de la pile !\
-Eh oui. A votre avis, comment le programme peut-il reprendre l'exécution de la fonction "main" sans sauvegarder sa position actuelle ? Ce n'est pas possible. Pour pouvoir y parvenir, à l'exécution de l'instruction "call", le processeur empile automatiquement le registre EIP (contenant l'instruction suivante). Dans notre exemple, "0x8048478" (main+29).
+Eh oui. Pour pouvoir reprendre l'exécution de la fonction "main", l'instruction "call" sauvegarde le registre EIP (contenant l'instruction suivante) en le plaçant sur la pile. Dans notre exemple, "0x8048478" (main+29).
 
 #### Initialiser la stack frame (prologue)
 
@@ -241,14 +251,14 @@ Eh oui, c'est ces deux petites instructions qui permettent de restaurer la stack
 
 ---
 
-Vous vous souvenez que dans le prologue EBP a été poussé en haut de la pile ? L'instruction "leave" va maintenant utiliser cette valeur pour restaurer la stack frame de main :
+Vous vous souvenez que dans le prologue EBP a été empilé en haut de la pile ? L'instruction "leave" va maintenant utiliser cette valeur pour restaurer la stack frame de main :
 
 ![stack frame restore](/img/stack_frame_restore.jpg)
 
 Dans l'ordre, l'instruction leave va effectuer ceci :
 
 1. Restauration de ESP. Pour cela, ESP = EBP+0x4
-2. Restauration de EBP. Pour cela, il utilise la valeur poussée sur la pile tout au début (valeur en bleue sur le schéma). La valeur de EBP vaudra 0xffffc578.
+2. Restauration de EBP. Pour cela, il utilise la valeur empilée sur la pile tout au début (valeur en bleue sur le schéma). La valeur de EBP vaudra 0xffffc578.
 
 L'instruction "leave" est équivalente à ceci :
 
@@ -259,7 +269,7 @@ mov    ebp,DWORD PTR [ebp]	; ebp = valeur de ebp
 
 ---
 
-Par la suite, l'instruction "ret" (pour retour) va permettre de reprendre l'exécution de la fonction "main" et ceci est possible parce que EIP a été poussé sur la pile (en rouge sur le schéma) par l'instruction "call".
+Par la suite, l'instruction "ret" (pour return) va permettre de reprendre l'exécution de la fonction "main" et ceci est possible parce que EIP a été empilé sur la pile (en rouge sur le schéma) par l'instruction "call".
 
 L'instruction "ret" est équivalente à ceci :
 
@@ -270,7 +280,7 @@ add    esp,0x4 					; ajoute 4 à esp
 
 ---
 
-Et voilà, la stack frame de main a été restaurée correctement et nous avons repris l'exécution de main là où on c'était arrêté au moment du "call" (main+29) :
+Et voilà, la stack frame de main a été restaurée correctement et nous avons repris l'exécution de main là où on s'était arrêté au moment du "call" (main+29) :
 
 ```
 [----------------------------------registers-----------------------------------]
@@ -291,6 +301,6 @@ EIP: 0x8048478 (<main+29>:	add    esp,0x10)
 
 ### Le mot de la fin
 
-J'espère que ce tuto d'introduction sur les failles systèmes vous aura plu et que vous l'avez compris dans sa globalité. Si vous l'avez apprécié, n'hésitez pas à mettre un petit "j'aime" en bas de la page. Si vous avez des questions sur une partie que vous n'avez pas comprise ou tout simplement partager votre avis, alors n'hésitez pas à commenter la page. Et même (surtout) si j'ai fait une boulette.
+J'espère que ce tuto d'initiation sur les failles systèmes vous aura plu et que vous l'avez compris dans sa globalité. Si vous l'avez apprécié, n'hésitez pas à mettre un petit "j'aime" en bas de la page. Si vous avez des questions sur une partie que vous n'avez pas comprise ou tout simplement envie de partager votre avis, n'hésitez pas à commenter la page. Et même (surtout) si j'ai fait une boulette.
 
-Maintenant vous êtes prêt pour passer à la suite, l'exploitation d'un buffer overflow (arrive prochainement) :)
+Maintenant vous êtes prêt à passer à la suite, l'exploitation d'un buffer overflow :)

