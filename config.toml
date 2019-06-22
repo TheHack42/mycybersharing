@@ -36,11 +36,11 @@ disqusShortname = "mycybersharing"
     identifier = "cybersecu"
     url = "/cybersecu/"
 
-[[menu.main]]
-    name = "Biologie"
-    weight = 2
-    identifier = "biology"
-    url = "/biology/"
+#[[menu.main]]
+#    name = "Biologie"
+#    weight = 2
+#    identifier = "biology"
+#    url = "/biology/"
 
 [[menu.main]]
     name = "A propos"
