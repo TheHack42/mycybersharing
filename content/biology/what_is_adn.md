@@ -1,12 +1,12 @@
 ---
-title: "Qu'est ce que l'ADN ?"
+title: "Qu'est-ce que l'ADN ?"
 slug: "what_is_adn"
 date: 2019-06-12
 description: "L'ADN, cette chose si mystérieuse et complexe à la fois... Essayons d'en savoir un peu plus"
 ---
 
 ## La molécule d'ADN
-Derrière l'ADN ce cache un nom un peu barbare : "**A**cide **D**ésoxyribo**N**ucléique", qui est la signification de l'ADN.
+Derrière l'ADN se cache un nom un peu barbare : "**A**cide **D**ésoxyribo**N**ucléique", qui est la signification de l'ADN.
 Cette molécule est présente dans tous les êtres vivants (même les plantes) et contient le patrimoine génétique de l'espèce. Elle est unique d'un individu à un autre et elle est d'ailleurs responsable de la diversité génétique des êtres vivants.
 
 Ce code génétique contient toutes les informations définissant notre apparence : la couleur de nos cheveux, de nos yeux, la forme de notre visage, notre taille... mais également les informations nécessaires au bon fonctionnement de notre organisme.
@@ -98,7 +98,7 @@ Les mutations des gènes sont à l'origine de l'évolution de l'espèce et de la
 
 Les gènes de l'être humain présentent des différences d'une population à une autre. Ces différences sont dues à la suite d'une mutation génétique au cours des générations humaines, permettant ainsi d'adapter l'être humain à son environnement et à devenir plus résistant.
 
-Face au SIDA, des inégalités dans le monde existe à la suite d'une mutation génétique. Une mutation génétique a fait suite à la modification du fonctionnement d'un récepteur surnommé [CCR5](https://fr.wikipedia.org/wiki/CCR5). Plusieurs formes du virus VIH utilisent ce récepteur pour pénétrer les cellules humaines et ainsi mettre en péril notre organisme. La modification de ce récepteur permet ainsi de réduire le risque d'attraper le VIH ou de le transmettre à une personne.
+Face au SIDA, des inégalités dans le monde existent à la suite d'une mutation génétique. Une mutation génétique a fait suite à la modification du fonctionnement d'un récepteur surnommé [CCR5](https://fr.wikipedia.org/wiki/CCR5). Plusieurs formes du virus VIH utilisent ce récepteur pour pénétrer les cellules humaines et ainsi mettre en péril notre organisme. La modification de ce récepteur permet ainsi de réduire le risque d'attraper le VIH ou de le transmettre à une personne.
 
 ## Le virus du SIDA
 
@@ -109,7 +109,7 @@ Le VIH (Virus de l'Immunodéficience Humaine) est le virus qui peut déclencher 
 Le SIDA vient littéralement écrouler le système immunitaire, un système biologique permettant de reconnaître un virus et de mettre en place les défenses nécessaires pour l'élimination de ce dernier. Pour ce faire, le virus vient prendre le contrôle du gène responsable de la production de la protéine [CD4](https://fr.wikipedia.org/wiki/CD4). Il endommage le gène et va finir par le détruire, provoquant l'arrêt de la production de la protéine.
 Le virus entre dans une cellule cible et l'infecte en lui injectant son patrimoine génétique.
 
-1. **Primo-infection** : le virus envahit progressivement l'organisme contaminé jusqu'à une prise de contrôle globale. Cette colonisation est très rapide et la quantité de protéines CD4 chutes brutalement. Des symptômes peuvent apparaître comme un mal de tête, de la fièvre, une grande fatigue... Après quelques semaines, le système immunitaire commence à réagir contre le virus en produisant des anticorps et la maladie recule. La quantité de protéines CD4 augmente à nouveau et le système immunitaire reprend le dessus.
+1. **Primo-infection** : le virus envahit progressivement l'organisme contaminé jusqu'à une prise de contrôle globale. Cette colonisation est très rapide et la quantité de protéines CD4 chute brutalement. Des symptômes peuvent apparaître comme un mal de tête, de la fièvre, une grande fatigue... Après quelques semaines, le système immunitaire commence à réagir contre le virus en produisant des anticorps et la maladie recule. La quantité de protéines CD4 augmente à nouveau et le système immunitaire reprend le dessus.
 
 2. **La phase asymptomatique** : une longue guerre débute entre le virus et le système immunitaire. Le système immunitaire produit des anticorps afin de lutter contre le virus alors que le virus vient détruire les protéines permettant de lutter contre les virus... malheureusement le virus va prendre peu à peu le dessus en détruisant les productions de CD4.
 
@@ -146,6 +146,6 @@ Eh non, cela ne serait pas pertinent suite au brassage et aux mutations des gèn
 
 ## Conclusion
 
-L'ADN a encore bien des mystères à nous révéler mais la connaissance de l'ADN et de son fonctionnement a fortement progressé durant ces dernières années grâce aux progrès technologiques, et notamment avec les [séquenceurs d'ADN](https://fr.wikipedia.org/wiki/S%C3%A9quenceur_d%27ADN). La maîtrise de notre patrimoine génétique nous permettrais à l'avenir de soigner des maladies génétiques, des cancers ou même le SIDA.
+L'ADN a encore bien des mystères à nous révéler mais la connaissance de l'ADN et de son fonctionnement a fortement progressé durant ces dernières années grâce aux progrès technologiques, et notamment avec les [séquenceurs d'ADN](https://fr.wikipedia.org/wiki/S%C3%A9quenceur_d%27ADN). La maîtrise de notre patrimoine génétique nous permettrait à l'avenir de soigner des maladies génétiques, des cancers ou même le SIDA.
 
-La maîtrise et la modification de l'ADN n'ont pas que du positif... il y a en effet des risques de dérives éthiques. Quand je parle de "dérives éthiques", je pense à la manipulation du génome humain (modification). [CRISPR-Cas](https://www.museum.toulouse.fr/-/crispr-cas-une-technique-revolutionnaire-pour-modifier-le-genome) (ou "ciseaux moléculaires") est une méthode permettant de modifier le génome de façon ciblée, simple, rapide et abordable. C'est cette méthode qui a été utilisé pour la [modification génétique d'embryons humain](https://www.sciencesetavenir.fr/sante/ogm-bebes-crispr-une-deuxieme-femme-est-enceinte_130917) faisant suite à la naissance de deux jumelles... Nous devons rester vigilant sur ce que pourrait nous apporter la connaissance et la maîtrise du génome humain, qui est à utiliser avec prudence.
+La maîtrise et la modification de l'ADN n'ont pas que du positif... il y a en effet des risques de dérives éthiques. Quand je parle de "dérives éthiques", je pense à la manipulation du génome humain (modification). [CRISPR-Cas](https://www.museum.toulouse.fr/-/crispr-cas-une-technique-revolutionnaire-pour-modifier-le-genome) (ou "ciseaux moléculaires") est une méthode permettant de modifier le génome de façon ciblée, simple, rapide et abordable. C'est cette méthode qui a été utilisée pour la [modification génétique d'embryons humain](https://www.sciencesetavenir.fr/sante/ogm-bebes-crispr-une-deuxieme-femme-est-enceinte_130917) faisant suite à la naissance de deux jumelles... Nous devons rester vigilant sur ce que pourrait nous apporter la connaissance et la maîtrise du génome humain, qui est à utiliser avec prudence.
