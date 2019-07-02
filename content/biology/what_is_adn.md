@@ -27,9 +27,9 @@ Une cellule a une taille vraiment petite, à l'exception du jaune d'oeuf... En e
 ## De la cellule à l'ADN
 
 1. Une cellule contient un **génome**, l'intégralité du patrimoine génétique d'une espèce vivante. Ce génome est présent au sein du noyau de la cellule.
-2. Si nous zoomons sur un génome, nous allons apercevoir un ou des **chromosomes** (en fonction de l'espèce). L'Homme possède au total 46 chromosomes répartis en 23 paires (les chromosomes sont par deux). Nous avons 22 paires d'[autosomes](https://fr.wikipedia.org/wiki/Autosome) numérotés de 1 à 22 et la paire 23 sont les chromosomes sexuels, X et Y. La femme possède deux chromosomes X (XX) et l'homme possède un chromosome X et un chromosome Y (XY).
-3. Un chromosome possède une molécule d'ADN. Ce brain d'ADN est segmenté en plusieurs **gènes** (\~22 000 chez l'Homme), permettant de coder des protéines.
-4. Un gène est un fragment d'une molécule d'ADN. Un zoom sur un gène nous permettrais d'apercevoir la structure de l'ADN qui le compose : une **succession de bases azotées** (bâtonnets colorés sur le schéma).
+2. Si nous zoomons sur un génome, nous allons apercevoir un ou des **chromosomes** (en fonction de l'espèce). L'Homme possède au total 46 chromosomes répartis en 23 paires (les chromosomes sont par deux). Nous avons 22 paires d'[autosomes](https://fr.wikipedia.org/wiki/Autosome) numérotés de 1 à 22 et la paire 23 correspond aux chromosomes sexuels, X et Y. La femme possède deux chromosomes X (XX) et l'homme possède un chromosome X et un chromosome Y (XY).
+3. Un chromosome possède une molécule d'ADN. Ce brin d'ADN est segmenté en plusieurs **gènes** (\~22 000 chez l'Homme), permettant de coder des protéines.
+4. Un gène est un fragment d'une molécule d'ADN. Un zoom sur un gène nous permettrait d'apercevoir la structure de l'ADN qui le compose : une **succession de bases azotées** (bâtonnets colorés sur le schéma).
 
 Un petit schéma très bien fait va nous permettre d'y voir un peu plus clair :
 
@@ -43,7 +43,7 @@ Poursuivons notre voyage :)
 
 L'ADN est composé d'une suite d'éléments qui sont appelés **nucléotides** et qui sont emboités comme des legos. Tout à l'heure j'ai parlé de **base azotée**... une base azotée est un composant clé des nucléotides et c'est en enchainant des bases azotées qu'il est possible de coder une protéine.
 
-Il existe au totales 4 bases azotées différentes :
+Il existe au total 4 bases azotées différentes :
 
 - L'adénime => **A**
 - La thymine => **T**
@@ -148,4 +148,4 @@ Eh non, cela ne serait pas pertinent suite au brassage et aux mutations des gèn
 
 L'ADN a encore bien des mystères à nous révéler mais la connaissance de l'ADN et de son fonctionnement a fortement progressé durant ces dernières années grâce aux progrès technologiques, et notamment avec les [séquenceurs d'ADN](https://fr.wikipedia.org/wiki/S%C3%A9quenceur_d%27ADN). La maîtrise de notre patrimoine génétique nous permettrait à l'avenir de soigner des maladies génétiques, des cancers ou même le SIDA.
 
-La maîtrise et la modification de l'ADN n'ont pas que du positif... il y a en effet des risques de dérives éthiques. Quand je parle de "dérives éthiques", je pense à la manipulation du génome humain (modification). [CRISPR-Cas](https://www.museum.toulouse.fr/-/crispr-cas-une-technique-revolutionnaire-pour-modifier-le-genome) (ou "ciseaux moléculaires") est une méthode permettant de modifier le génome de façon ciblée, simple, rapide et abordable. C'est cette méthode qui a été utilisée pour la [modification génétique d'embryons humain](https://www.sciencesetavenir.fr/sante/ogm-bebes-crispr-une-deuxieme-femme-est-enceinte_130917) faisant suite à la naissance de deux jumelles... Nous devons rester vigilant sur ce que pourrait nous apporter la connaissance et la maîtrise du génome humain, qui est à utiliser avec prudence.
+La maîtrise et la modification de l'ADN n'ont pas que du positif... il y a en effet des risques de dérives éthiques. Quand je parle de "dérives éthiques", je pense à la manipulation du génome humain (modification). [CRISPR-Cas](https://www.museum.toulouse.fr/-/crispr-cas-une-technique-revolutionnaire-pour-modifier-le-genome) (ou "ciseaux moléculaires") est une méthode permettant de modifier le génome de façon ciblée, simple, rapide et abordable. C'est cette méthode qui a été utilisée pour la [modification génétique d'embryons humains](https://www.sciencesetavenir.fr/sante/ogm-bebes-crispr-une-deuxieme-femme-est-enceinte_130917) faisant suite à la naissance de deux jumelles... Nous devons rester vigilants sur ce que pourrait nous apporter la connaissance et la maîtrise du génome humain, qui est à utiliser avec prudence.
