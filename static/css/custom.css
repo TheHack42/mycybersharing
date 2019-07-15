@@ -30,7 +30,8 @@
 }
 
 .sidebar {
-	background-color: #304235;
+  background-image: url(/img/galaxy.jpg);
+  background-size: cover;
 }
 
 .content {

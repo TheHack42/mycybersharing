@@ -43,6 +43,12 @@ disqusShortname = "mycybersharing"
     url = "/biology/"
 
 [[menu.main]]
+    name = "Psychologie"
+    weight = 3
+    identifier = "psychology"
+    url = "/psychology/"
+
+[[menu.main]]
     name = "A propos"
     weight = 500
     identifier = "about"
