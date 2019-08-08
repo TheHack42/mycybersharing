@@ -105,7 +105,7 @@ Pas tant que ça... Nous avons tous une perception différente du sexe opposé, 
 
 ### Une définition peut être biaisée ?
 
-Je pense que nous avons tous une définition de ce qu'est une femme et est homme, une définition forger avec le temps, l'éducation et nos expériences de vies. Une perception potentiellement biaisée par des croyances enrichies durant les siècles. Pensez-vous qu'une femme pour qu'elle soit belle doit obligatoirement être maquillée et bien habillée ? La question peut très bien être posée pour l'homme (sans le maquillage). Une femme bien habillée, bien maquillée, bien coiffée, bien tout en fait... est-ce réellement la définition de la beauté d'une femme ou une simple perception due à la culture, l'éducation, et autres idées reçues ? Les réponses apportées à toutes ces questions resteraient totalement subjectives.
+Je pense que nous avons tous une définition de ce qu'est une femme et est homme, une définition forgée avec le temps, l'éducation et nos expériences de vies. Une perception potentiellement biaisée par des croyances enrichies durant les siècles. Pensez-vous qu'une femme pour qu'elle soit belle doit obligatoirement être maquillée et bien habillée ? La question peut très bien être posée pour l'homme (sans le maquillage). Une femme bien habillée, bien maquillée, bien coiffée, bien tout en fait... est-ce réellement la définition de la beauté d'une femme ou une simple perception due à la culture, l'éducation, et autres idées reçues ? Les réponses apportées à toutes ces questions resteraient totalement subjectives.
 
 ### Qu'est-ce que la beauté d'une personne ?
 
