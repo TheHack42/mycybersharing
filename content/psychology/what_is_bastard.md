@@ -33,10 +33,6 @@ Avant de commencer, nous devons savoir que chaque individu sur terre est totalem
 
 ![peter pan](/img/what_is_connard/peter_pan.gif)
 
-## Les codes d'une société
-
-Eh oui, une société suit des codes de conduite ou plutôt une culture. En sociologie (discipline des sciences sociales), la culture est caractérisée par un ensemble de manières de faire et de penser qui sont propres à un groupe d'individus.
-
 ## L'intelligence
 
 Un simple mot et pourtant pouvant dire tellement de choses... Plusieurs définitions existent concernant « l'intelligence » et pouvant varier suivant les métiers, les domaines ou les interlocuteurs. En revanche, la définition qui prône est que l'intelligence désigne un ensemble de processus mentaux (la cognition) faisant partie intégrante d'un système (biologique ou non). Elle permet d'apprendre, de comprendre, de s'adapter à des situations particulières ou d'appréhender un environnement. Les êtres vivants, les algorithmes informatiques (apprentissage par la machine) et y compris les plantes, font preuve d'intelligence.
@@ -104,7 +100,7 @@ Attention à vous ! L'empathie peut également impacter votre humeur (en bien ou
 
 Tout d'abord, il n'est pas possible d'apporter une explication avec exactitude sur le comportement d'un individu. Pour cela, il faudrait pouvoir se mettre dans sa tête afin d'avoir tous les éléments en main et ainsi comprendre pourquoi il a pris telle ou telle décision. Et encore...
 
-### "Quelqu'un de bien"
+### « Quelqu'un de bien »
 
 ![Iceberg](/img/what_is_connard/iceberg.jpg)
 
@@ -169,15 +165,15 @@ Certains éléments sont plus marquants que d'autres et vous allez vous en souve
 
 L'inconscience est une partie du cerveau inaccessible désignant toutes activités psychologiques échappant à la conscience d'un individu. Plus précisément, l'inconscience est un brassage d'idées, d'émotions, de perceptions... mais à un état actif (non endormi). Ça vous est sûrement déjà arrivé d'effectuer une action sans avoir conscience que vous l'aviez faite. Oui, sans doute. Par exemple, personnellement ça m'arrive d'avoir fermé la porte de chez moi ou de ma voiture et 5 minutes plus tard de me demander si j'avais vraiment effectué cette action... C'est simplement mon inconscience qui a demandé à mon corps d'effectuer cette action.
 
-**Sigmund Freud** est médecin psychiatre et est le précurseur de la psychanalyse. Il est partie à la découverte de l'inconscience, et l'a décrit comme un espace du cerveau contenant des représentations refoulées durant la vie d'un individu. Il voit cela comme un système de défense du **moi** rejetant des situations ou des scènes dites "choquantes".
+**Sigmund Freud** est médecin psychiatre et est le précurseur de la psychanalyse. Il est partie à la découverte de l'inconscience, et l'a décrit comme un espace du cerveau contenant des représentations refoulées durant la vie d'un individu. Il voit cela comme un système de défense du **moi** rejetant des situations ou des scènes dites « choquantes ».
 
 > ***Petit aparté*** : Sigmund Freud a élaboré une théorie de l'inconscience découpée en trois parties.
 >
-> **Le ça** : "C’est la partie la plus obscure, la plus impénétrable de notre personnalité. [Lieu de] Chaos, marmite pleine d’émotions bouillonnantes. Il s’emplit d’énergie, à partir des pulsions, mais sans témoigner d’aucune organisation, d’aucune volonté générale ; il tend seulement à satisfaire les besoins pulsionnels, en se conformant au principe de plaisir. Le ça ne connaît et ne supporte pas la contradiction. On y trouve aucun signe d’écoulement du temps" ***[Freud]***
+> **Le ça** : « C’est la partie la plus obscure, la plus impénétrable de notre personnalité. [Lieu de] Chaos, marmite pleine d’émotions bouillonnantes. Il s’emplit d’énergie, à partir des pulsions, mais sans témoigner d’aucune organisation, d’aucune volonté générale ; il tend seulement à satisfaire les besoins pulsionnels, en se conformant au principe de plaisir. Le ça ne connaît et ne supporte pas la contradiction. On y trouve aucun signe d’écoulement du temps » ***[Freud]***
 >
-> **Le Surmoi** : "Le Surmoi représente une intériorisation des interdits parentaux, une puissance interdictrice dont le Moi est obligé de tenir compte. L’être humain subit, en effet, durant son enfance, une longue dépendance qu’exprime le Surmoi. Le Surmoi est cette voix en nous qui dit “il ne faut pas”, une sorte de loi morale qui agit sur nous sans comprendre son origine." ***[Freud]***
+> **Le Surmoi** : « Le Surmoi représente une intériorisation des interdits parentaux, une puissance interdictrice dont le Moi est obligé de tenir compte. L’être humain subit, en effet, durant son enfance, une longue dépendance qu’exprime le Surmoi. Le Surmoi est cette voix en nous qui dit « il ne faut pas », une sorte de loi morale qui agit sur nous sans comprendre son origine. » ***[Freud]***
 >
-> **Le moi** : "Le moi a pour mission d’être le représentant de ce monde aux yeux du ça et pour le plus grand bien de ce dernier. En effet, le moi, sans le ça, aspirant aveuglément aux satisfactions instinctuelles, viendrait imprudemment se briser contre cette force extérieure plus puissante que lui. Le moi détrône le principe de plaisir, qui, dans le ça, domine de la façon la plus absolue. Il l’a remplacé par le principe de réalité plus propre à assurer sécurité et réussite." ***[Freud]***
+> **Le moi** : « Le moi a pour mission d’être le représentant de ce monde aux yeux du ça et pour le plus grand bien de ce dernier. En effet, le moi, sans le ça, aspirant aveuglément aux satisfactions instinctuelles, viendrait imprudemment se briser contre cette force extérieure plus puissante que lui. Le moi détrône le principe de plaisir, qui, dans le ça, domine de la façon la plus absolue. Il l’a remplacé par le principe de réalité plus propre à assurer sécurité et réussite. » ***[Freud]***
 > ***
 > Le moi est là en tant que filtre et permet de garantir la stabilité de l'individu en l'empêchant d'évacuer ses pulsions, ses émotions...
 
@@ -187,12 +183,9 @@ L'inconscience peut donc contenir des souvenirs choquants qui ont été refoulé
 
 ## Nous avons perdu notre « bâtard »...
 
-C'est normal justement... Plus sérieusement, les différents sujets et pensées évoquées jusqu'à présent rentrent dans la perception du monde extérieur, des gens et des rencontres que nous faisons durant notre vie. Dans chacune des parties de cet article, il y a un lien commun apportant une vision différente. Vous l'aurez compris : il n'est pas possible d'éviter à 100% les mauvaises personnes (« bâtard », « salaud » et autres nuisibles...) pour nous à plus ou moins long terme. Nous pouvons améliorer notre vision des choses et notre façon de penser pour nous prémunir des personnes nuisibles ou simplement pouvoir améliorer nos échanges afin de nous préserver.
+C'est normal justement... Plus sérieusement, les différents sujets et pensées évoquées jusqu'à présent rentrent dans la perception du monde extérieur, des gens et des rencontres que nous faisons durant notre vie. Dans chacune des parties de cet article, il y a un lien commun apportant une vision différente. Vous l'aurez compris : il n'est pas possible d'éviter à 100% les mauvaises personnes (« bâtard », « salaud » et autres nuisibles...) pour nous à plus ou moins long terme. Nous pouvons améliorer notre vision des choses, notre façon de penser, prendre du recule pour ainsi nous prémunir des personnes nuisibles ou simplement pouvoir améliorer nos échanges afin de nous préserver.
 
-- **Les premières impressions** : oui c'est important, mais ne vous arrêtez pas ici...
-- **L'empathie avec parcimonie** : réussir à être à la place d'autrui c'est prendre du recul en mettant de côté nos jugements pour ainsi mieux comprendre autrui. Comprendre aide à avancer, participe aux prises de décisions et facilite la digestion des choses difficiles.
-- **Le passé, source d'explications** : nous avons tous un passé plus ou moins écorché. Le prendre en compte peut expliquer certaines choses.
-- **Homme et femme, une psychologie si différente ?** : nous ne sommes pas si différents que ça. Restez naturel, ce n'est pas votre rouge à lèvres ou votre joli costume qui va faire qu'une personne va vous aimer. Ce n'est pas à la surface que se trouve la vraie richesse...
+![Modèle](/img/what_is_connard/modele_v2.png)
 
 ## Conclusion
 
@@ -200,4 +193,4 @@ Cet article n'était pas destiné à vous apporter des réponses sur le fait de 
 
 Puis-je vous remercier ? Bon, je vais le faire quand même : merci pour votre lecture :)
 
-***<span style="font-weight: normal">À la suite d'une belle rencontre que j'ai faite récemment, certains de nos échanges m'ont conduit à rédiger cet article ou plus précisément à avoir une réflexion sur la « nuisibilité d'une personne » (<span style="font-size: 17px">#bâtaaard !<img src="/img/what_is_connard/smiley.png" alt=":)" style="display: inline-block;margin: 0 5px -5px;"></span>).</span>***
+***<span style="font-weight: normal">À la suite d'une belle rencontre que j'ai faite récemment, certains de nos échanges m'ont conduit à rédiger cet article ou plus précisément à avoir une réflexion sur la « nuisibilité d'une personne » (<span style="font-size: 17px">#bâtaaard !<img src="/img/what_is_connard/smiley.png" alt=":)" style="display: inline-block;margin: 0 5px -5px;"></span>merci).</span>***
