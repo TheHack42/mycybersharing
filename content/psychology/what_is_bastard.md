@@ -114,7 +114,7 @@ Personne n'est parfait et nous avons tous des qualités et des défauts. Si vous
 
 L'image que l'on donne de soi est d'une importance capitale, c'est cette image qui est perçue par une personne que l'on rencontre pour la première fois. Plusieurs facteurs peuvent influencer l'image que l'on donne de soi comme le stress, le manque de confiance en soi, la fatigue... et bien d'autres. Il est par moments préférable qu'un individu ne soit pas parfait à la première impression que s'il l'était.
 
-***"Pourquoi ?"*** Tout simplement parce que certaines personnes jouent de leur image. Elles adaptent leur image en fonction de la personne dans le but de faire « bonne impression » ou de séduire la personne. Elles ne sont donc pas naturelles... Les grands séducteurs connaissent très bien ça. Changer son image en fonction de la personne ou situation ne veut pas forcément dire que c'est quelqu'un de pas bien. Cela peut vouloir dire que ladite personne peut être mal à l'aise avec elle-même. La psychologie n'est pas une science exacte...
+***« Pourquoi ? »*** Tout simplement parce que certaines personnes jouent de leur image. Elles adaptent leur image en fonction de la personne dans le but de faire « bonne impression » ou de séduire la personne. Elles ne sont donc pas naturelles... Les grands séducteurs connaissent très bien ça. Changer son image en fonction de la personne ou situation ne veut pas forcément dire que c'est quelqu'un de pas bien. Cela peut vouloir dire que ladite personne peut être mal à l'aise avec elle-même. La psychologie n'est pas une science exacte...
 
 ## Homme et femme, une psychologie si différente ?
 
