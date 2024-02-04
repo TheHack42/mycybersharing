@@ -41,7 +41,7 @@ En réalité, le petit mot-clé au début de l'instruction est appellé un "**op
 
 ![instruction](/img/instruction.jpg)
 
-## Les registres pour nos calcules
+## Les registres pour nos calculs
 
 Chaque microprocesseur inclut une suite de plusieurs registres, un emplacement mémoire interne au microprocesseur. Il s'agit de la mémoire la plus rapide d'un ordinateur dû fait qu'elle soit présente directement dans l'unité de calcul.\
 Ces petites zones de mémoire ont commencé par faire 16 bits (à l'époque du 8086), puis 32 bits et maintenant 64 bits pour les processeurs x64.\
