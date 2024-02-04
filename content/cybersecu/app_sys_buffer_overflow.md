@@ -166,7 +166,7 @@ Segmentation fault (core dumped)
 $
 ```
 
-Ça vous voyez, c'est très bon signe ! Nous venons de déborder le buffer réservé pour notre prénom, nous sommes allés réécrire des données présentes après le buffer et l'application a crashée.
+Ça vous voyez, c'est très bon signe ! Nous venons de déborder le buffer réservé pour notre prénom, nous sommes allés réécrire des données présentes après le buffer et l'application a crashé.
 
 L'erreur **"Segmentation fault"** indique que l'application a tentée d'accéder à un emplacement mémoire qui ne lui était pas attribué. De ce fait, l'OS a inévitablement interrompu son exécution.
 
