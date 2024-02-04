@@ -38,7 +38,7 @@ Parce que vous n'avez pas forcément les droits nécessaires :p Sur une machine,
 
 Quelques exemples motivant un attaquant à exploiter un buffer overflow :
 
-- Un service en écoute sur un port est vulnérable à un buffer overflow. Un attaquant souhaite prendre le contrôle à distance sur ce serveur (dans un premier temps). Pour cela il va forger une requête particulière afin d'exploiter le buffer overflow en exécutant un code arbitraire qui va lui permettant d'obtenir un reverse shell (un shell qui vient se conecter sur la machine de l'attaquant).
+- Un service en écoute sur un port est vulnérable à un buffer overflow. Un attaquant souhaite prendre le contrôle à distance sur ce serveur (dans un premier temps). Pour cela il va forger une requête particulière afin d'exploiter le buffer overflow en exécutant un code arbitraire qui va lui permettant d'obtenir un reverse shell (un shell qui vient se connecter sur la machine de l'attaquant).
 - Cette fois, l'attaquant à la main sur la machine mais possède des privilèges limités. Pour les obtenir, il va exploiter un programme vulnérable à un buffer overflow et qui tourne avec des privilèges élevés afin d'obtenir un shell possédant les pleins pouvoirs.
 - Maintenant aucun service n'est vulnérable et l'attaquant n'a pas la main sur la machine. Dans un premier temps, il va utiliser de l'ingénierie sociale (manipulation de l'être humain) pour réussir à faire télécharger un fichier à sa victime. Ensuite, un buffer overflow peut être exploité par l'un des logiciels de lectures du fichier (lecteur vidéo, photo, PDF, musique...) et l'attaquant pourra obtenir un reverse shell au moment où sa victime ouvrira le fichier. Ce genre de faille ont été présentes dans certaines versions de Adobe Reader (le lecteur de PDF).
 
@@ -202,7 +202,7 @@ Nous allons lister les fonctions présentes afin d'y voir plus clair :
 ![gdb_functions](/img/gdb_functions.jpg)
 
 ***Mais... il y en a beaucoup pour un simple programme !***\
-Toutes les fonctions commençant par un underscore ou finissants par "@plt" ne sont souvent pas des fonctions développées par le développeur. C'est des fonctions présentes dans des bibliothèques partagées ou qui ont été rajoutées par le compilateur permettant d'initialiser le programme ou de le fermer proprement. Du coup ça en élimine plusieurs. Les fonctions "...register...clones" et "frame_dummy" peuvent également être ignorées.\
+Toutes les fonctions commençant par un underscore ou finissants par "@plt" ne sont souvent pas des fonctions développées par le développeur. Ce sont des fonctions présentes dans des bibliothèques partagées ou qui ont été rajoutées par le compilateur permettant d'initialiser le programme ou de le fermer proprement. Du coup ça en élimine plusieurs. Les fonctions "...register...clones" et "frame_dummy" peuvent également être ignorées.\
 Bon allez, voici une commande permettant d'afficher uniquement les fonctions ne commençant pas par un underscore et ne possédant pas de "@" :
 
 ![gdb_functions_filter](/img/gdb_functions_filter.jpg)
@@ -248,7 +248,7 @@ Un schéma s'impose afin d'illustrer notre situation :
 
 ![overflow pattern](/img/overflow_pattern.jpg)
 
-Vous voyez le souci ? Nous avons réécrit la sauvegarde de EIP servant à reprendre l'exécution de la fonction "main" et l'instruction "ret" l'a copiée dans le registre EIP. Le problème c'est que cette sauvegarde a été altérée par notre pattern et ne correspond pas à une adresse valide... du coup l'application a crashée.
+Vous voyez le souci ? Nous avons réécrit la sauvegarde de EIP servant à reprendre l'exécution de la fonction "main" et l'instruction "ret" l'a copiée dans le registre EIP. Le problème c'est que cette sauvegarde a été altérée par notre pattern et ne correspond pas à une adresse valide... du coup l'application a crashé.
 
 ![gdb overflow eip](/img/gdb_overflow_eip.jpg)
 
